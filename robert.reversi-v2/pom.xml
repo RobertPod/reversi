@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>robert</groupId>
-	<artifactId>reversi-v2</artifactId>
-	<version>0.0.1</version>
+	<artifactId>reversiV2Engine</artifactId>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>reversi-v2</name>
+	<name>reversiV2Engine</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>

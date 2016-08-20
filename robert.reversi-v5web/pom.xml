@@ -103,8 +103,8 @@
 
 		<dependency>
 			<groupId>robert</groupId>
-			<artifactId>reversi-v2</artifactId>
-			<version>0.0.1</version>
+			<artifactId>reversiV2Engine</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 
