@@ -9,13 +9,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Witam w Reversi</title>
+<jsp:include page="header.jsp"/> <%--  <title>...</title> --%>
 </head>
 <body>
 	Cześć!!!
 	<br />
 	<strong>${message} = :-) = </strong>
-	<form:form action="startform" method="POST">
+	<form:form action="startForm" method="POST">
 		<table>
 			<tr>
 				<td><input type="submit" name="error" value="Error" /></td>

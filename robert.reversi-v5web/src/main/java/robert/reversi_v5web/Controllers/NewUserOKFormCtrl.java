@@ -16,6 +16,6 @@ public class NewUserOKFormCtrl {
 
 	@RequestMapping(value = "/newUserOKForm", method = RequestMethod.POST)
 	public String newUserOKFormPOST() {
-		return "redirect:/startform";
+		return "redirect:/startForm";
 	}
 }

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Wyszukaj użytkownika</title>
+<jsp:include page="header.jsp"/> <%--  <title>...</title> --%>
 <style>
 table, th, td {
 	border: 1px solid black;
@@ -24,7 +24,7 @@ table {
 	<br />&nbsp;
 	<br />
 
-	<form:form action="usersearchform">
+	<form:form action="userSearchForm">
 		${message2}&nbsp;&nbsp;:-)
 		<br />&nbsp;<br />
 		<table>
@@ -80,7 +80,7 @@ table {
 			</table>
 		</c:if>
 		<c:if test="${fn:length(formlist) == 1}">
-			<form:form action="usersearchform" modelAttribute="formlist"
+			<form:form action="userSearchForm" modelAttribute="formlist"
 				method="post">
 				<table>
 					<tr>

@@ -63,7 +63,7 @@ public class NewUserFormCtrl {
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST, params = { "cancel" })
 	public String newUserFormEsc(Model model) {
-		return "redirect:/startform";
+		return "redirect:/startForm";
 	}
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST)

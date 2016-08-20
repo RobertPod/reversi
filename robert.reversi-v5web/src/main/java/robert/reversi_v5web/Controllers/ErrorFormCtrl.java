@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ErrorFormCtrl {
-	@RequestMapping("/errorForm	")
+	@RequestMapping("/errorForm")
 	public String errorPage(Model model) {
 		return ("/errorForm");
 	}

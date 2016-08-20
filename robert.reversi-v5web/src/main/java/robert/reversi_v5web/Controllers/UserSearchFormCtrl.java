@@ -87,7 +87,7 @@ public class UserSearchFormCtrl {
 
 	@RequestMapping(value = "/userSearchForm", method = RequestMethod.POST, params = { "cancel" })
 	public String userSearchPOSTCancel(Model model) {
-		return "redirect:/startform";
+		return "redirect:/startForm";
 
 	}
 
