@@ -22,7 +22,7 @@ public class UserSearchFormCtrl {
 	@Autowired
 	private HibDBUserDAOImpl hibDBUserDaoImpl;
 
-	@RequestMapping(value = "/usersearchform", method = RequestMethod.GET)
+	@RequestMapping(value = "/userSearchForm", method = RequestMethod.GET)
 	public String userSearchGET(Model model) {
 		model.addAttribute("message1", "Wyszukiwanie użytkowników");
 		model.addAttribute("message2",
@@ -31,10 +31,10 @@ public class UserSearchFormCtrl {
 						+ "Jeżeli wynik wyszukiwania jest pusty lub nie wypełnino pól wyświetlana jest pusta lista.");
 		model.addAttribute("message3", "<br />&nbsp;<br />");
 
-		return "/usersearchform";
+		return "/userSearchForm";
 	}
 
-	@RequestMapping(value = "/usersearchform", method = RequestMethod.POST, params = { "submit" })
+	@RequestMapping(value = "/userSearchForm", method = RequestMethod.POST, params = { "submit" })
 	public String userSearchPOST(@RequestParam(required = false, defaultValue = "") String searchID,
 			@RequestParam(required = false, defaultValue = "") String searchEmail, Model model,
 			@ModelAttribute("formlist") List<UserDAOImpl> formlist) {
@@ -82,10 +82,10 @@ public class UserSearchFormCtrl {
 				model.addAttribute("message3", "<br />&nbsp;<br />Nie znaleziono użytkownika o email: " + searchEmail);
 			}
 		}
-		return "/usersearchform";
+		return "/userSearchForm";
 	}
 
-	@RequestMapping(value = "/usersearchform", method = RequestMethod.POST, params = { "cancel" })
+	@RequestMapping(value = "/userSearchForm", method = RequestMethod.POST, params = { "cancel" })
 	public String userSearchPOSTCancel(Model model) {
 		return "redirect:/startform";
 

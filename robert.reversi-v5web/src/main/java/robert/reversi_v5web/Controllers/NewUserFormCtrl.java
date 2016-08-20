@@ -31,22 +31,22 @@ public class NewUserFormCtrl {
 	@Autowired
 	private HibDBUserDAOImpl hibDBUserDaoImpl;
 
-	@RequestMapping(value = "/newuserform", method = RequestMethod.GET)
+	@RequestMapping(value = "/newUserForm", method = RequestMethod.GET)
 	public String newUserFormGET(Model model) {
 		model.addAttribute("message", "Cześć. Wypełnij proszę formularz.");
-		return "newuserform";
+		return "newUserForm";
 	}
 
-	@RequestMapping(value = "/newuserform", method = RequestMethod.POST, params = { "submit" })
+	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST, params = { "submit" })
 	public String newUserFormUserData(Model model, @ModelAttribute("form") @Valid FormularzDTO form,
 			BindingResult result) {
 		if (result.hasErrors()) {
 			// formularz nie jest uzupełniony prawidłowo
 			model.addAttribute("message", "Bardzo proszę! Popraw blędy!");
-			return "/newuserform";
+			return "/newUserForm";
 		} else if (hibDBUserDaoImpl.existUserWithEmail(form.getEmail())) {
 			model.addAttribute("message", "Użytkownik z takim adresem email już istnieje!");
-			return "/newuserform";
+			return "/newUserForm";
 		} else {
 			// formularz wypełniony prawidłowo
 			userDao = new UserDAOImpl();
@@ -57,18 +57,18 @@ public class NewUserFormCtrl {
 			// dla DBUserDaoImpl
 			// DBUserDaoImpl.addUser(userDao);
 			hibDBUserDaoImpl.addUser(userDao);
-			return "redirect:/newuserokform";
+			return "redirect:/newUserOKForm";
 		}
 	}
 
-	@RequestMapping(value = "/newuserform", method = RequestMethod.POST, params = { "cancel" })
+	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST, params = { "cancel" })
 	public String newUserFormEsc(Model model) {
 		return "redirect:/startform";
 	}
 
-	@RequestMapping(value = "/newuserform", method = RequestMethod.POST)
+	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST)
 	public String newUsrFormErr(Model model) {
-		return "redirect:/errorformu";
+		return "redirect:/errorForm";
 	}
 
 	@ModelAttribute("form")
