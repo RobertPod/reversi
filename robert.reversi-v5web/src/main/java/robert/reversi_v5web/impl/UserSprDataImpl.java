@@ -4,20 +4,16 @@ import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Repository;
-
-import robert.reversi_v5web.api.UserDAO;
-
-@Repository
 @Entity
-@Table(name="user")
-public class UserDAOImpl implements UserDAO {
+@Table(name = "user")
+public class UserSprDataImpl {
 	@Id
-	@GeneratedValue
-	private long userID;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long userId;
 	private String name;
 	private String email;
 	private int age;
@@ -68,13 +64,14 @@ public class UserDAOImpl implements UserDAO {
 		this.pass2 = pass2;
 	}
 
-	public long getUserID() {
-		return userID;
+	public long getUserId() {
+		return userId;
 	}
 
-	public void setUserID(long userID) {
-		this.userID = userID;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
+
 	public Timestamp getFirst_log() {
 		return first_log;
 	}
@@ -91,14 +88,14 @@ public class UserDAOImpl implements UserDAO {
 		this.last_log = last_log;
 	}
 
-	public void copyUserObj(UserDAO user) {
+	public void copyUserObj(UserSprDataImpl user) {
 		this.name = user.getName();
 		this.age = user.getAge();
 		this.email = user.getEmail();
 		this.pass = user.getPass();
 		this.pass2 = user.getPass2();
-		this.userID = user.getUserID();
+		this.userId = user.getUserId();
 		this.first_log = user.getFirst_log();
-		this.last_log = user.getFirst_log();		
+		this.last_log = user.getFirst_log();
 	}
 }

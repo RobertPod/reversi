@@ -1,35 +1,32 @@
 package robert.reversi_v5web.Controllers;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import robert.reversi_v5web.impl.DBUserDAOImpl;
-// import robert.reversi_v5web.impl.DBUserDAOImpl;
 import robert.reversi_v5web.impl.FormularzDTO;
-import robert.reversi_v5web.impl.HibDBUserDAOImpl;
-import robert.reversi_v5web.impl.UserDAOImpl;
+import robert.reversi_v5web.impl.SprDataUserDAO;
+import robert.reversi_v5web.impl.UserSprDataImpl;
 
 @Controller
 public class NewUserFormCtrl {
-	// dla DBUserDaoImpl - wszystkie zakomentowane linie. Dla celów
-	// dydaktycznych chcę mieć zarówno implementację bezpośredni JDBC jak i JPA
-	// @Autowired
-	private UserDAOImpl userDao;
+	private UserSprDataImpl userDao;
 
-	// dla DBUserDaoImpl
-	// @Autowired
-	// private DBUserDAOImpl DBUserDaoImpl;
-
-	// dla HibDBUserDAOImpl
 	@Autowired
-	private HibDBUserDAOImpl hibDBUserDaoImpl;
+	protected SprDataUserDAO userDaoSpr;
+	// @Autowired
+	// private HibDBUserDAOImpl hibDBUserDaoImpl;
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.GET)
 	public String newUserFormGET(Model model) {
@@ -44,21 +41,25 @@ public class NewUserFormCtrl {
 			// formularz nie jest uzupełniony prawidłowo
 			model.addAttribute("message", "Bardzo proszę! Popraw blędy!");
 			return "/newUserForm";
-		} else if (hibDBUserDaoImpl.existUserWithEmail(form.getEmail())) {
-			model.addAttribute("message", "Użytkownik z takim adresem email już istnieje!");
-			return "/newUserForm";
-		} else {
+		}
+		List<UserSprDataImpl> searchResList = userDaoSpr.findByEmail(form.getEmail());
+		if (CollectionUtils.isEmpty(searchResList)) {
 			// formularz wypełniony prawidłowo
-			userDao = new UserDAOImpl();
+			userDao = new UserSprDataImpl();
 			userDao.setName(form.getName());
 			userDao.setEmail(form.getEmail());
 			userDao.setPass(form.getPass());
+			// userDao.setPass2(form.getPass2()); - nie ma sensu wpisywać
 			userDao.setAge(form.getAge() == null ? 0 : form.getAge());
-			// dla DBUserDaoImpl
-			// DBUserDaoImpl.addUser(userDao);
-			hibDBUserDaoImpl.addUser(userDao);
+			Date date = new Date();
+			Timestamp current_log = new Timestamp(date.getTime());
+			userDao.setFirst_log(current_log);
+			userDao.setLast_log(current_log);
+			userDaoSpr.save(userDao);
 			return "redirect:/newUserOKForm";
 		}
+		model.addAttribute("message", "Użytkownik z takim adresem email już istnieje!");
+		return "/newUserForm";
 	}
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST, params = { "cancel" })

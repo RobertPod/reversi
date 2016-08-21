@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xsi:schemaLocation="
  http://www.springframework.org/schema/mvc 
  http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
@@ -13,12 +14,15 @@
  http://www.springframework.org/schema/jdbc 
  http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
  http://www.springframework.org/schema/tx 
- http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+ http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+ http://www.springframework.org/schema/data/jpa
+ http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd">
 
 	<context:component-scan base-package="robert.reversi_v5web" /> <!-- Chcemy automatycznie obsługiwać wszystkie klasy z adnotacjami w tym 
 		pakiecie -->
 	<context:annotation-config /> <!-- To na przyszłość, pozwoli nam korzystać z adnotacji także w klasach, 
 		które byśmy skonfigurowali ręcznie -->
+	<jpa:repositories base-package="robert.reversi_v5web" />
 
 	<context:component-scan base-package="robert.reversi_v5web.Controllers" />
 	<context:component-scan base-package="robert.reversi_v5web.Impl" />

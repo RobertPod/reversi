@@ -1,10 +1,7 @@
 package robert.reversi_v5web.Controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.function.UnaryOperator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import robert.reversi_v5web.api.UserDAO;
-import robert.reversi_v5web.impl.HibDBUserDAOImpl;
-import robert.reversi_v5web.impl.UserDAOImpl;
+import robert.reversi_v5web.impl.SprDataUserDAO;
+import robert.reversi_v5web.impl.UserSprDataImpl;
 
 @Controller
 public class UserSearchFormCtrl {
 	@Autowired
-	private HibDBUserDAOImpl hibDBUserDaoImpl;
+	protected SprDataUserDAO userDaoSpr;
 
 	@RequestMapping(value = "/userSearchForm", method = RequestMethod.GET)
 	public String userSearchGET(Model model) {
@@ -37,7 +33,7 @@ public class UserSearchFormCtrl {
 	@RequestMapping(value = "/userSearchForm", method = RequestMethod.POST, params = { "submit" })
 	public String userSearchPOST(@RequestParam(required = false, defaultValue = "") String searchID,
 			@RequestParam(required = false, defaultValue = "") String searchEmail, Model model,
-			@ModelAttribute("formlist") List<UserDAOImpl> formlist) {
+			@ModelAttribute("formlist") List<UserSprDataImpl> formlist) {
 		model.addAttribute("message1", "Wyszukiwanie użytkowników");
 		model.addAttribute("message2",
 				"Wprowadź <strong>ID</strong> lub <strong>email</strong> szukanego użytkownika.<br />"
@@ -50,35 +46,26 @@ public class UserSearchFormCtrl {
 			} catch (NumberFormatException nfe) {
 				longID = 0l;
 			}
-			UserDAO searchRes;
-			searchRes = hibDBUserDaoImpl.getUser(longID);
+			UserSprDataImpl searchRes;
+			searchRes = userDaoSpr.findByUserId(longID);
 			if (searchRes != null) {
-				// form.copyUserObj(searchRes);
-				formlist.add((UserDAOImpl) searchRes);
+				formlist.add(searchRes);
 				model.addAttribute("message3", "<br />&nbsp;<br />Wynik wyszukiwania wg. ID: " + searchID);
 			} else {
-				// form.setUserID(0l);
-				UserDAO userDAOTmp = new UserDAOImpl();
-				userDAOTmp.setUserID(0l);
-				formlist.add((UserDAOImpl) userDAOTmp);
+				UserSprDataImpl userDAOTmp = new UserSprDataImpl();
+				userDAOTmp.setUserId(0l);
+				formlist.add(userDAOTmp);
 				model.addAttribute("message3", "<br />&nbsp;<br />Nie znaleziono użytkownika o ID: " + searchID);
 			}
 		} else if (!searchEmail.isEmpty()) {
-			// UserDAO searchRes =
-			// hibDBUserDaoImpl.searchFirstUserByEmail(searchEmail); -
-			// wyszukanie jednego elementu
-			List<? extends Object> searchResList = hibDBUserDaoImpl.searchUserByEmail(searchEmail);
-			// UserDAO searchRes =
-			// hibDBUserDaoImpl.searchFirstUserByEmail(searchEmail); -
-
+			List<UserSprDataImpl> searchResList = userDaoSpr.findByEmailLikeOrderByUserId(searchEmail);
 			if (!searchResList.isEmpty()) {
-				formlist.addAll((Collection<? extends UserDAOImpl>) searchResList); // add((UserDAOImpl)
-																					// searchRes);
+				formlist.addAll(searchResList);
 				model.addAttribute("message3", "<br />&nbsp;<br />Wynik wyszukiwania wg. adresu email: " + searchEmail);
 			} else {
-				UserDAO userDAOTmp = new UserDAOImpl();
-				userDAOTmp.setUserID(0l);
-				formlist.add((UserDAOImpl) userDAOTmp);
+				UserSprDataImpl userDAOTmp = new UserSprDataImpl();
+				userDAOTmp.setUserId(0l);
+				formlist.add(userDAOTmp);
 				model.addAttribute("message3", "<br />&nbsp;<br />Nie znaleziono użytkownika o email: " + searchEmail);
 			}
 		}
@@ -90,15 +77,15 @@ public class UserSearchFormCtrl {
 		return "redirect:/startForm";
 
 	}
-
+/*
 	@ModelAttribute("form")
 	public UserDAOImpl getFormularz() {
 		return new UserDAOImpl();
 	}
-
+*/
 	@ModelAttribute("formlist")
-	public List<UserDAOImpl> getFormsList() {
-		List<UserDAOImpl> userList = new ArrayList<UserDAOImpl>();
+	public List<UserSprDataImpl> getFormsList() {
+		List<UserSprDataImpl> userList = new ArrayList<UserSprDataImpl>();
 		return userList;
 	}
 }

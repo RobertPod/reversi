@@ -51,7 +51,7 @@ table {
 	<strong>${message3}&nbsp;&nbsp;&nbsp;&nbsp;:-)</strong>
 	<br />&nbsp;
 	<br />
-	<c:if test="${formlist[0].userID > 0}">
+	<c:if test="${formlist[0].userId > 0}">
 		<c:if test="${fn:length(formlist) > 1}">
 			<%!int data = 1;%>
 			<%
@@ -69,7 +69,7 @@ table {
 				<c:forEach items="${formlist}" var="record">
 					<tr align="left">
 						<td><%=data++%></td>
-						<td>${record.userID}</td>
+						<td>${record.userId}</td>
 						<td>${record.name}</td>
 						<td>${record.email}</td>
 						<td><c:if test="${record.age != 0}"> ${record.age} </c:if> <c:if
@@ -85,7 +85,7 @@ table {
 				<table>
 					<tr>
 						<th>ID</th>
-						<td>${formlist[0].userID}</td>
+						<td>${formlist[0].userId}</td>
 					</tr>
 					<tr>
 						<th>Nazwa użytkownika</th>
