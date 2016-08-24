@@ -46,7 +46,7 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 
 	public void paintGamePad() {
 
-		Dimension dim = new Dimension(SIZETABLE * CELLSIZE + SIZETABLE + 1, SIZETABLE * CELLSIZE + SIZETABLE + 1);
+		Dimension dim = new Dimension(SIZETABLE * CELLSIZE + SIZETABLE, SIZETABLE * CELLSIZE + SIZETABLE);
 		setPreferredSize(dim);
 	}
 
