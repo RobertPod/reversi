@@ -26,6 +26,10 @@
 				<td colspan="3"><input type="submit" name="finduser"
 					value="Pokaż użytkowników" /></td>
 			</tr>
+			<tr>
+				<td colspan="3"><input type="submit" name="gameboard"
+					value="Plansza gry" /></td>
+			</tr>
 		</table>
 	</form:form>
 </body>

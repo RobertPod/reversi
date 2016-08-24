@@ -77,12 +77,7 @@ public class UserSearchFormCtrl {
 		return "redirect:/startForm";
 
 	}
-/*
-	@ModelAttribute("form")
-	public UserDAOImpl getFormularz() {
-		return new UserDAOImpl();
-	}
-*/
+
 	@ModelAttribute("formlist")
 	public List<UserSprDataImpl> getFormsList() {
 		List<UserSprDataImpl> userList = new ArrayList<UserSprDataImpl>();

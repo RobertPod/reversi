@@ -55,11 +55,6 @@
 		<property name="username" value="root" />
 		<property name="password" value="" />
 	</bean>
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" /> <property 
-		name="url" value="jdbc:mysql://79.96.224.221/sql?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" 
-		/> <property name="username" value="08298514_reversi" /> <property name="password" 
-		value="r3V3Rs.1" /> </bean> -->
 
 	<tx:annotation-driven />
 	<bean id="entityManagerFactory"

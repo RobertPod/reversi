@@ -30,6 +30,7 @@ public class StartFormCtrl {
 	@RequestMapping(value = "/startForm", method = RequestMethod.POST)
 	public String startFormPOST(@RequestParam(required = false, defaultValue = "") String error,
 			@RequestParam(required = false, defaultValue = "") String newuser,
+			@RequestParam(required = false, defaultValue = "") String gameboard,
 			@RequestParam(required = false, defaultValue = "") String finduser, Model model) {
 
 		if (!error.isEmpty()) {
@@ -38,6 +39,8 @@ public class StartFormCtrl {
 			return "redirect:/newUserForm";
 		} else if (!finduser.isEmpty()) {
 			return "redirect:/userSearchForm";
+		} else if (!gameboard.isEmpty()) {
+			return "redirect:/gameBoard";
 		} else {
 			throw new IllegalArgumentException("Need either newuser or finduser!");
 		}

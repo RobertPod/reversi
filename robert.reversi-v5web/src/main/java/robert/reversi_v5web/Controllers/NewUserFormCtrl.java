@@ -1,7 +1,6 @@
 package robert.reversi_v5web.Controllers;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,15 +17,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import robert.reversi_v5web.impl.FormularzDTO;
 import robert.reversi_v5web.impl.SprDataUserDAO;
 import robert.reversi_v5web.impl.UserSprDataImpl;
+import robert.reversi_v5web.services.CurrentJavaSqlTimestamp;
+import robert.reversi_v5web.services.EmailService;
 
 @Controller
 public class NewUserFormCtrl {
+	String eol = System.getProperty("line.separator");
 	private UserSprDataImpl userDao;
 
 	@Autowired
 	protected SprDataUserDAO userDaoSpr;
-	// @Autowired
-	// private HibDBUserDAOImpl hibDBUserDaoImpl;
+	@Autowired
+	protected CurrentJavaSqlTimestamp currentJavaSqlTimestamp;
+	@Autowired
+	protected EmailService emailService;
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.GET)
 	public String newUserFormGET(Model model) {
@@ -51,14 +55,27 @@ public class NewUserFormCtrl {
 			userDao.setPass(form.getPass());
 			// userDao.setPass2(form.getPass2()); - nie ma sensu wpisywać
 			userDao.setAge(form.getAge() == null ? 0 : form.getAge());
-			Date date = new Date();
-			Timestamp current_log = new Timestamp(date.getTime());
+			Timestamp current_log = currentJavaSqlTimestamp.getCurrentJavaSqlTimestamp();
 			userDao.setFirst_log(current_log);
 			userDao.setLast_log(current_log);
 			userDaoSpr.save(userDao);
+			{
+				String emailSubject = "ReversiV5Web - założono konto";
+				String emailContent = "Konto założono poprawnie" + eol + "Username: " + form.getName() + eol
+						+ "User email: " + form.getEmail() + eol + "User age: " + form.getAge() + eol + "Data, czas: "
+						+ current_log;
+				emailService.sendEmail(form.getEmail(), emailSubject, emailContent);
+			}
 			return "redirect:/newUserOKForm";
 		}
 		model.addAttribute("message", "Użytkownik z takim adresem email już istnieje!");
+		{
+			String emailSubject = "ReversiV5Web - użytkownik już istnieje";
+			String emailContent = "Dla podanego adresu Email konto już istnieje" + eol + "Username: " + form.getName()
+					+ eol + "User email: " + form.getEmail() + eol + "User age: " + form.getAge() + eol + "Data, czas: "
+					+ currentJavaSqlTimestamp.getCurrentJavaSqlTimestamp();
+			emailService.sendEmail(form.getEmail(), emailSubject, emailContent);
+		}
 		return "/newUserForm";
 	}
 

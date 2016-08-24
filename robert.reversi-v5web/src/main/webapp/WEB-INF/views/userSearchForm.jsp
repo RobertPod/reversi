@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<jsp:include page="header.jsp"/> <%--  <title>...</title> --%>
+<jsp:include page="header.jsp" />
+<%--  <title>...</title> --%>
 <style>
 table, th, td {
 	border: 1px solid black;
@@ -25,8 +26,9 @@ table {
 	<br />
 
 	<form:form action="userSearchForm">
-		${message2}&nbsp;&nbsp;:-)
-		<br />&nbsp;<br />
+	${message2}&nbsp;&nbsp;:-)
+	<br />&nbsp;
+	<br />
 		<table>
 			<tr>
 				<td>Wprowadź <strong>Id</strong>:
