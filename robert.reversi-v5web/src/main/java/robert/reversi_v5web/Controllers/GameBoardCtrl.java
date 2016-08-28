@@ -118,7 +118,7 @@ public class GameBoardCtrl {
 
 	@ModelAttribute("formGamePadPar")
 	public GamePadParDTO getGamePadParDTO() {
-		GamePadParDTO formGamePadPar = new GamePadParDTO();
+		GamePadParDTO formGamePadPar = new GamePadParDTO(gameService);
 		return formGamePadPar;
 	}
 

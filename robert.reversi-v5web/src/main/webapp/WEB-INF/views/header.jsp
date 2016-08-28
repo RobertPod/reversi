@@ -1,1 +1,1 @@
-<title>ReversiV5Web 1.7.0-SNAPSHOT</title>
+<title>ReversiV5Web 1.8.0-SNAPSHOT</title>

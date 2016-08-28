@@ -1,17 +1,33 @@
 package robert.reversi_v5web.impl;
 
-import static robert.reversi_v2.domain.DeclareConstants.SIZETABLE;
-import static robert.reversi_v2.domain.DeclareConstants.CELLSIZE;
+import robert.reversi_v5web.services.GameService;
 
 public class GamePadParDTO {
-	private static final Integer width = SIZETABLE * CELLSIZE + SIZETABLE;
-	private static final Integer height = SIZETABLE * CELLSIZE + SIZETABLE;
-	private static final Integer cellWidth = CELLSIZE;
-	private static final Integer cellHeight = CELLSIZE;
-	private static final Integer sizeX = SIZETABLE;
-	private static final Integer sizeY = SIZETABLE;
+	private static Integer width;
+	private static Integer height;
+	private static Integer cellWidth;
+	private static Integer cellHeight;
+	private static Integer sizeX;
+	private static Integer sizeY;
 	private Integer x;
 	private Integer y;
+
+	public GamePadParDTO(GameService gameService) {
+		GamePadParDTO.width = gameService.getSizeTable() * gameService.getSizeCell() + gameService.getSizeTable(); // SIZETABLE
+																													// *
+																													// CELLSIZE
+																													// +
+																													// SIZETABLE
+		GamePadParDTO.height = gameService.getSizeTable() * gameService.getSizeCell() + gameService.getSizeTable(); // SIZETABLE
+																													// *
+																													// CELLSIZE
+																													// +
+																													// SIZETABLE
+		GamePadParDTO.cellWidth = gameService.getSizeCell(); // CELLSIZE;
+		GamePadParDTO.cellHeight = gameService.getSizeCell(); // CELLSIZE;
+		GamePadParDTO.sizeX = gameService.getSizeTable(); // SIZETABLE;
+		GamePadParDTO.sizeY = gameService.getSizeTable(); // SIZETABLE;
+	}
 
 	public Integer getWidth() {
 		return width;
