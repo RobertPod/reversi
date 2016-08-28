@@ -2,6 +2,9 @@ package robert.reversi_v5web.Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +22,12 @@ public class UserSearchFormCtrl {
 	protected SprDataUserDAO userDaoSpr;
 
 	@RequestMapping(value = "/userSearchForm", method = RequestMethod.GET)
-	public String userSearchGET(Model model) {
+	public String userSearchGET(HttpSession session, Model model) {
+
+		if (session.isNew()) {
+			return "redirect:/startForm";
+		}
+
 		model.addAttribute("message1", "Wyszukiwanie użytkowników");
 		model.addAttribute("message2",
 				"Wprowadź <strong>ID</strong> lub <strong>email</strong> szukanego użytkownika.<br />"
@@ -31,9 +39,15 @@ public class UserSearchFormCtrl {
 	}
 
 	@RequestMapping(value = "/userSearchForm", method = RequestMethod.POST, params = { "submit" })
-	public String userSearchPOST(@RequestParam(required = false, defaultValue = "") String searchID,
+	public String userSearchPOST(HttpSession session,
+			@RequestParam(required = false, defaultValue = "") String searchID,
 			@RequestParam(required = false, defaultValue = "") String searchEmail, Model model,
 			@ModelAttribute("formlist") List<UserSprDataImpl> formlist) {
+
+		if (session.isNew()) {
+			return "redirect:/startForm";
+		}
+
 		model.addAttribute("message1", "Wyszukiwanie użytkowników");
 		model.addAttribute("message2",
 				"Wprowadź <strong>ID</strong> lub <strong>email</strong> szukanego użytkownika.<br />"
@@ -73,7 +87,7 @@ public class UserSearchFormCtrl {
 	}
 
 	@RequestMapping(value = "/userSearchForm", method = RequestMethod.POST, params = { "cancel" })
-	public String userSearchPOSTCancel(Model model) {
+	public String userSearchPOSTCancel(HttpSession session, Model model) {
 		return "redirect:/startForm";
 
 	}

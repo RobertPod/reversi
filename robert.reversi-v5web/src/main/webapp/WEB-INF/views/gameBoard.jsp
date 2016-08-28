@@ -29,20 +29,13 @@
 			document.getElementById('height').value = height;
 			document.getElementById('posx').value = posX;
 			document.getElementById('posy').value = posY;
+			document.getElementById('counter').value = (${formXY.counter});
 			document.getElementById('gameBoardFormXY').submit();
 		});
 	});
 </script>
 </head>
 <body>
-	<script>
-	$(document).ready(function() {
-		document.getElementById('x').value = (${formXY.x});
-		document.getElementById('y').value = (${formXY.y});
-		document.getElementById('posx').value = (${formXY.posX});
-		document.getElementById('posy').value = (${formXY.posY});
-	});
-	</script>
 	<table>
 		<tr>
 			<td>
@@ -94,7 +87,62 @@
 	</script>
 
 			</td>
-			<td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><form:form action="gameBoard">
+					<input type="submit" name="NewGame" id="NewGame" value="Nowa gra" />
+					<input type="submit" name="StartForm" id="StartForm"
+						value="Strona startowa" style="right: auto;" />
+				</form:form></td>
+			<td></td>
+		</tr>
+	</table>
+	<br>
+
+	<%-- wysłanie parametrów kliknięcia na czerwonym obszrze  --%>
+	<form:form action='gameBoard' id='gameBoardFormXY'
+		modelAttribute="formXY" method='POST'>
+		<form:input type='hidden' path="x" id="x" name="x"></form:input>
+		<form:input type='hidden' path="y" id="y" name="y"></form:input>
+		<form:input type='hidden' path="width" id="width" name="width"></form:input>
+		<form:input type='hidden' path="height" id="height" name="height"></form:input>
+		<form:input type='hidden' path="posX" id="posx" name="posx"></form:input>
+		<form:input type='hidden' path="posY" id="posy" name="posy"></form:input>
+		<form:input type='hidden' path="counter" id="counter" name="counter"></form:input>
+	</form:form>
+</body>
+</html>
+
+<%-- 
+	 http://www.w3schools.com/html/html5_canvas.asp
+	 http://www.w3schools.com/html/html5_svg.asp
+	 
+	 <script>
+		var c = document.getElementById("myGamePad");
+		var ctx = c.getContext("2d");
+		ctx.fillStyle = "#92B901";
+		ctx.fillRect(50, 50, 100, 100);
+	</script>
+	 
+
+--%>
+<%-- dla kontroli - wyświtlenie pozycji na ekranie
+<script>
+	$(document).ready(function() {
+		$('#myGamePad').click(function(e) {
+			var offset = $(this).offset();
+			$('#x_axis').html(e.clientX - offset.left);
+			$('#y_axis').html(e.clientY - offset.top);
+		});
+	});
+</script>  --%>
+<%-- dla kontroli - wyświtlenie pozycji na ekranie
+		<br /> X Axis: - <span id="x_axis">0</span> <br /> Y Axis: - <span
+			id="y_axis">0</span> --%>
+
+
+<%-- dla pamięci użycie Canvas
 				<canvas id="myGamePadVal" width=${formGamePadPar.width
 					}
 					height=${formGamePadPar.height } style="border: 1px solid"> Your browser does not support the HTML5 canvas tag. </canvas>
@@ -133,50 +181,11 @@
 			ctx.strokeText(tab[i], xx * (cellWidth + 1) + 10, yy * (cellWidth + 1) + 35);
 		}
 	</script>
-			</td>
-		</tr>
-	</table>
-	<br>
-	<p>
-		<strong>Note:</strong> The canvas tag is not supported in Internet
-		Explorer 8 and earlier versions.
-	</p>
-	<%-- wysłanie parametrów kliknięcia na czerwonym obszrze  --%>
-	<form:form action='gameBoard' id='gameBoardFormXY'
-		modelAttribute="formXY" method='POST'>
-		<form:input type='hidden' path="x" id="x" name="x"></form:input>
-		<form:input type='hidden' path="y" id="y" name="y"></form:input>
-		<form:input type='hidden' path="width" id="width" name="width"></form:input>
-		<form:input type='hidden' path="height" id="height" name="height"></form:input>
-		<form:input type='hidden' path="posX" id="posx" name="posx"></form:input>
-		<form:input type='hidden' path="posY" id="posy" name="posy"></form:input>
-	</form:form>
-</body>
-</html>
-
-<%-- 
-	 http://www.w3schools.com/html/html5_canvas.asp
-	 http://www.w3schools.com/html/html5_svg.asp
-	 
-	 <script>
-		var c = document.getElementById("myGamePad");
-		var ctx = c.getContext("2d");
-		ctx.fillStyle = "#92B901";
-		ctx.fillRect(50, 50, 100, 100);
-	</script>
-	 
-
---%>
-<%-- dla kontroli - wyświtlenie pozycji na ekranie
-<script>
-	$(document).ready(function() {
-		$('#myGamePad').click(function(e) {
-			var offset = $(this).offset();
-			$('#x_axis').html(e.clientX - offset.left);
-			$('#y_axis').html(e.clientY - offset.top);
-		});
-	});
-</script>  --%>
-<%-- dla kontroli - wyświtlenie pozycji na ekranie
-		<br /> X Axis: - <span id="x_axis">0</span> <br /> Y Axis: - <span
-			id="y_axis">0</span> --%>
+ 
+ --%>
+ <%--
+ pomocne do przepisania wyświetlania:
+ https://pl.wikipedia.org/wiki/JavaServer_Pages
+ 
+  
+  --%>

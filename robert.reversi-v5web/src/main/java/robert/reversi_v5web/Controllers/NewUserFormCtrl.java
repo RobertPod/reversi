@@ -3,6 +3,7 @@ package robert.reversi_v5web.Controllers;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +34,23 @@ public class NewUserFormCtrl {
 	protected EmailService emailService;
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.GET)
-	public String newUserFormGET(Model model) {
+	public String newUserFormGET(HttpSession session, Model model) {
+		if (session.isNew()) {
+			return "redirect:/startForm";
+		}
+
 		model.addAttribute("message", "Cześć. Wypełnij proszę formularz.");
 		return "newUserForm";
 	}
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST, params = { "submit" })
-	public String newUserFormUserData(Model model, @ModelAttribute("form") @Valid FormularzDTO form,
-			BindingResult result) {
+	public String newUserFormUserData(HttpSession session, Model model,
+			@ModelAttribute("form") @Valid FormularzDTO form, BindingResult result) {
+
+		if (session.isNew()) {
+			return "redirect:/startForm";
+		}
+
 		if (result.hasErrors()) {
 			// formularz nie jest uzupełniony prawidłowo
 			model.addAttribute("message", "Bardzo proszę! Popraw blędy!");
@@ -80,12 +90,16 @@ public class NewUserFormCtrl {
 	}
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST, params = { "cancel" })
-	public String newUserFormEsc(Model model) {
+	public String newUserFormEsc(HttpSession session, Model model) {
+
 		return "redirect:/startForm";
 	}
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST)
-	public String newUsrFormErr(Model model) {
+	public String newUsrFormErr(HttpSession session, Model model) {
+		if (session.isNew()) {
+			return "redirect:/startForm";
+		}
 		return "redirect:/errorForm";
 	}
 

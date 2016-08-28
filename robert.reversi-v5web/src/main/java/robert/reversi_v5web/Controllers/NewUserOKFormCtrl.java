@@ -1,5 +1,7 @@
 package robert.reversi_v5web.Controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,12 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class NewUserOKFormCtrl {
 	@RequestMapping(value = "/newUserOKForm", method = RequestMethod.GET)
-	public String newUserOKFormGET() {
+	public String newUserOKFormGET(HttpSession session) {
+		if (session.isNew()) {
+			return "redirect:/startForm";
+		}
+
 		return "newUserOKForm";
 	}
 
 	@RequestMapping(value = "/newUserOKForm", method = RequestMethod.POST)
-	public String newUserOKFormPOST() {
+	public String newUserOKFormPOST(HttpSession session) {
 		return "redirect:/startForm";
 	}
 }

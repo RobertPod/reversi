@@ -1,14 +1,21 @@
 package robert.reversi_v5web.services;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import static robert.reversi_v2.domain.DeclareConstants.SIZETABLE;
 import static robert.reversi_v2.domain.DeclareConstants.CELLSIZE;
 import robert.reversi_v2.domain.CellCollor;
 import robert.reversi_v5web.impl.VGamePadImpl;
 
 @Service
+@Scope(value = "session")
 public class GameService {
 	private VGamePadImpl vGamePad = new VGamePadImpl();
+
+	public VGamePadImpl getvGamePad() {
+		return vGamePad;
+	}
 
 	public Integer getCellInt(int x, int y) {
 		return vGamePad.getCell(x, y).ordinal();
@@ -20,6 +27,10 @@ public class GameService {
 
 		int xcell = (xpos - xpos % CELLSIZE) / CELLSIZE;
 		int ycell = (ypos - ypos % CELLSIZE) / CELLSIZE;
+		if (xcell >= SIZETABLE)
+			xcell = SIZETABLE - 1;
+		if (ycell >= SIZETABLE)
+			ycell = SIZETABLE - 1;
 
 		switch (vGamePad.getCell(xcell, ycell)) {
 		case WHITE:

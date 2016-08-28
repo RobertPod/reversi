@@ -35,7 +35,8 @@ public class VirtualGamePadImpl implements VirtualGamePad {
 		int amount = 0;
 		for (int i = 0; i < SIZETABLE; ++i)
 			for (int j = 0; j < SIZETABLE; ++j)
-				if(gameTable[i][j] == cellCollor) amount++;
+				if (gameTable[i][j] == cellCollor)
+					amount++;
 		return amount;
 	}
 
@@ -43,6 +44,10 @@ public class VirtualGamePadImpl implements VirtualGamePad {
 		for (int i = 0; i < SIZETABLE; ++i)
 			for (int j = 0; j < SIZETABLE; ++j)
 				gameTable[i][j] = CellCollor.WHITE;
+		gameTable[SIZETABLE / 2][SIZETABLE / 2] = CellCollor.BLACK;
+		gameTable[SIZETABLE / 2 - 1][SIZETABLE / 2 - 1] = CellCollor.BLACK;
+		gameTable[SIZETABLE / 2][SIZETABLE / 2 - 1] = CellCollor.RED;
+		gameTable[SIZETABLE / 2 - 1][SIZETABLE / 2] = CellCollor.RED;
 	}
 
 }

@@ -7,6 +7,8 @@ public class XYPositionDTO {
 	private String posY;
 	private String x;
 	private String y;
+	private String counter;
+
 
 	public String getX() {
 		return x;
@@ -43,5 +45,11 @@ public class XYPositionDTO {
 	}
 	public void setPosY(String posY) {
 		this.posY = posY;
+	}
+	public String getCounter() {
+		return counter;
+	}
+	public void setCounter(String counter) {
+		this.counter = counter;
 	}
 }
