@@ -4,7 +4,7 @@
 
 	<groupId>robert</groupId>
 	<artifactId>reversiV2Engine</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<packaging>jar</packaging>
 
 	<name>reversiV2Engine</name>
@@ -46,5 +46,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<description>1.0.2 corect dimensions</description>
+	<description>1.0.2 corect dimensions
+1.0.3 Sizes chessboard - swapping fixed to variable</description>
 </project>

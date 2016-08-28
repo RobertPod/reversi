@@ -1,8 +1,5 @@
 package robert.reversi_v2;
 
-import static robert.reversi_v2.domain.DeclareConstants.CELLSIZE;
-import static robert.reversi_v2.domain.DeclareConstants.SIZETABLE;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -68,9 +65,10 @@ class GamePadWindow extends JFrame {
 		setLocationRelativeTo(null);
 		// Dimension buttonHeight = endButton.getSize(null); rozmiar dostępny
 		// dopiero po narysowaniu
-		int width = Math.max((SIZETABLE + 0) * CELLSIZE + (SIZETABLE + 1) + 16, 200);
-		setSize(width, ((SIZETABLE + 0) * CELLSIZE + (SIZETABLE + 1)
-				+ 75 /* na przyciski */ ));
+		int width = Math.max((virtualGamePad.getSizeTable() + 0) * virtualGamePad.getSizeCell()
+				+ (virtualGamePad.getSizeTable() + 1) + 16, 200);
+		setSize(width, ((virtualGamePad.getSizeTable() + 0) * virtualGamePad.getSizeCell()
+				+ (virtualGamePad.getSizeTable() + 1) + 75 /* na przyciski */ ));
 		setResizable(false);
 		setBackground(Color.WHITE);
 		redCount.setForeground(Color.RED);

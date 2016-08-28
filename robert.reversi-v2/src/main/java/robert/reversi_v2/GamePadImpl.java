@@ -1,8 +1,5 @@
 package robert.reversi_v2;
 
-import static robert.reversi_v2.domain.DeclareConstants.CELLSIZE;
-import static robert.reversi_v2.domain.DeclareConstants.SIZETABLE;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -19,8 +16,6 @@ import javax.swing.JPanel;
 import robert.reversi_v2.api.GamePad;
 import robert.reversi_v2.api.VirtualGamePad;
 import robert.reversi_v2.domain.CellCollor;
-
-import static robert.reversi_v2.domain.DeclareConstants.DIAMETER;;
 
 public class GamePadImpl extends JPanel implements GamePad, Serializable {
 	/**
@@ -44,9 +39,15 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 		paintGamePad();
 	}
 
+	public VirtualGamePad getVirtualGamePad() {
+		return virtualGamePad;
+	}
+
 	public void paintGamePad() {
 
-		Dimension dim = new Dimension(SIZETABLE * CELLSIZE + SIZETABLE, SIZETABLE * CELLSIZE + SIZETABLE);
+		Dimension dim = new Dimension(
+				virtualGamePad.getSizeTable() * virtualGamePad.getSizeCell() + virtualGamePad.getSizeTable(),
+				virtualGamePad.getSizeTable() * virtualGamePad.getSizeCell() + virtualGamePad.getSizeTable());
 		setPreferredSize(dim);
 	}
 
@@ -64,12 +65,13 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 		g.drawLine(1, maxHeight - 1, maxWidth - 1, maxHeight - 1);
 		g.drawLine(1, 1, maxWidth - 1, 1);
 		g.drawLine(maxWidth - 1, 1, maxWidth - 1, maxHeight - 1);
-		for (int i = 1; i < SIZETABLE; i++) {
-			g.drawLine(1, i * (CELLSIZE + 1), maxWidth - 1, i * (CELLSIZE + 1));
-			g.drawLine(i * (CELLSIZE + 1), 1, i * (CELLSIZE + 1), maxHeight - 1);
+		for (int i = 1; i < virtualGamePad.getSizeTable(); i++) {
+			g.drawLine(1, i * (virtualGamePad.getSizeCell() + 1), maxWidth - 1, i * (virtualGamePad.getSizeCell() + 1));
+			g.drawLine(i * (virtualGamePad.getSizeCell() + 1), 1, i * (virtualGamePad.getSizeCell() + 1),
+					maxHeight - 1);
 		}
-		for (int i = 0; i < SIZETABLE; ++i)
-			for (int j = 0; j < SIZETABLE; ++j) {
+		for (int i = 0; i < virtualGamePad.getSizeTable(); ++i)
+			for (int j = 0; j < virtualGamePad.getSizeTable(); ++j) {
 				switch (virtualGamePad.getCell(i, j)) {
 				case RED:
 					g.setColor(Color.RED);
@@ -80,9 +82,9 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 				default:
 					g.setColor(getBackground());
 				}
-				int x = (i) * (CELLSIZE + 1) + (DIAMETER / 2);
-				int y = (j) * (CELLSIZE + 1) + (DIAMETER / 2);
-				int r = CELLSIZE - DIAMETER;
+				int x = (i) * (virtualGamePad.getSizeCell() + 1) + (virtualGamePad.getSizeDiameter() / 2);
+				int y = (j) * (virtualGamePad.getSizeCell() + 1) + (virtualGamePad.getSizeDiameter() / 2);
+				int r = virtualGamePad.getSizeCell() - virtualGamePad.getSizeDiameter();
 				g.fillOval(x, y, r, r);
 			}
 		int i1 = virtualGamePad.amountPawn(CellCollor.RED);
@@ -126,14 +128,14 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 			int y = 1;
 
 			if (clickCount == 1) {
-				for (int i = 1; i <= SIZETABLE; ++i) {
-					if (xm < i * (CELLSIZE + 1)) {
+				for (int i = 1; i <= virtualGamePad.getSizeTable(); ++i) {
+					if (xm < i * (virtualGamePad.getSizeCell() + 1)) {
 						x = i - 1;
 						break;
 					}
 				}
-				for (int i = 1; i <= SIZETABLE; ++i) {
-					if (ym < i * (CELLSIZE + 1)) {
+				for (int i = 1; i <= virtualGamePad.getSizeTable(); ++i) {
+					if (ym < i * (virtualGamePad.getSizeCell() + 1)) {
 						y = i - 1;
 						break;
 					}
