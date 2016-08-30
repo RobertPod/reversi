@@ -10,11 +10,14 @@ import java.awt.event.MouseMotionAdapter;
 import java.io.Serializable;
 import java.util.TooManyListenersException;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import robert.reversi_v2.api.GamePad;
 import robert.reversi_v2.api.VirtualGamePad;
+import robert.reversi_v2.api.ComputerMove;
+import robert.reversi_v2.api.ComputerMove.XYPosition;
 import robert.reversi_v2.domain.CellCollor;
 
 public class GamePadImpl extends JPanel implements GamePad, Serializable {
@@ -30,7 +33,13 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 	// ArrayList<ActionListener>();
 	private ActionListener actionListener;
 
-	public GamePadImpl(VirtualGamePad virtualGamePad, JLabel redCount, JLabel blackCount) {
+	private boolean computerMove = false;
+	private boolean showMoveField = true;
+	private int showX;
+	private int showY;
+
+	public GamePadImpl(VirtualGamePad virtualGamePad, JLabel redCount, JLabel blackCount, JLabel statementLab,
+			JButton startComputerButton) {
 		this.virtualGamePad = virtualGamePad;
 		this.redCountLabel = redCount;
 		this.blackCountLabel = blackCount;
@@ -78,6 +87,12 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 					break;
 				case BLACK:
 					g.setColor(Color.BLACK);
+					break;
+				case PINK:
+					g.setColor(Color.PINK);
+					break;
+				case GRAY:
+					g.setColor(Color.GRAY);
 					break;
 				default:
 					g.setColor(getBackground());
@@ -140,13 +155,43 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 						break;
 					}
 				}
-				if (virtualGamePad.getCell(x, y) != CellCollor.WHITE)
-					virtualGamePad.setCell(x, y, CellCollor.WHITE);
-				else if (button == 1)
-					virtualGamePad.setCell(x, y, CellCollor.RED);
-				else
-					virtualGamePad.setCell(x, y, CellCollor.BLACK);
+				if (button == 1) {
+					if (!computerMove) {
+						if (showMoveField) { // pokaż gdzie ruch
+							if (virtualGamePad.isCorrectMovement(x, y, CellCollor.RED, false)) {
+								showX = x;
+								showY = y;
+								virtualGamePad.setCell(x, y, CellCollor.PINK);
+								showMoveField = false;
+							}
+						} else {
+							virtualGamePad.isCorrectMovement(showX, showY, CellCollor.RED, true);
+							computerMove = true;
+							showMoveField = true;
+						}
+					} else {
+						if (showMoveField) { // pokaż gdzie ruch
+							XYPosition xyPosition = ((ComputerMove) virtualGamePad).bestMove();
+							if (xyPosition.winsPawns > 0) {
+								showX = xyPosition.x;
+								showY = xyPosition.y;
+								virtualGamePad.setCell(showX, showY, CellCollor.GRAY);
+								showMoveField = false;
+							}
+						} else {
+							virtualGamePad.isCorrectMovement(showX, showY, CellCollor.BLACK, true);
+							computerMove = false;
+							showMoveField = true;
+						}
+
+						// ((VirtualGamePadImpl)
+						// virtualGamePad).makeBestConputerMove();
+					}
+				} /*
+					 * else virtualGamePad.setCell(x, y, CellCollor.BLACK);
+					 */
 			}
+
 			// notifyListeners();
 			repaint();
 

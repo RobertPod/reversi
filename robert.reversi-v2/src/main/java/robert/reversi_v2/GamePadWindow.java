@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 
 import robert.reversi_v2.api.GamePad;
 import robert.reversi_v2.api.VirtualGamePad;
+import robert.reversi_v2.api.ComputerMove.XYPosition;
 import robert.reversi_v2.impl.VirtualGamePadImpl;
 
 /**
@@ -32,19 +33,24 @@ class GamePadWindow extends JFrame {
 	VirtualGamePad virtualGamePad = new VirtualGamePadImpl();
 	JLabel redCount = new JLabel("0", SwingConstants.LEFT);
 	JLabel blackCount = new JLabel("0", SwingConstants.RIGHT);
-	GamePad gamePad = new GamePadImpl(virtualGamePad, redCount, blackCount);
+	JLabel statementLab = new JLabel("Twoje są zawsze czerwone chcesz zacząć, wykonaj ruch", SwingConstants.CENTER);
+	JButton startComputerButton = new JButton("Zaczyna komputer");
+	GamePad gamePad = new GamePadImpl(virtualGamePad, redCount, blackCount, statementLab, startComputerButton);
 	JButton endButton = new JButton("Wyjście");
-	JButton clearButton = new JButton("Czyść");
+	JButton clearButton = new JButton("Nowa gra");
 
 	public GamePadWindow() {
 
-		super("Reversi v.2");
+		super("Reversi v.2 2.0.0 Hey, let's game!");
 
 		JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		northPanel.add((Component) gamePad);
+		JPanel middlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		middlePanel.add(statementLab);
 		JPanel southPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		southPanel.add(redCount);
 		southPanel.add(endButton);
+		southPanel.add(startComputerButton);
 		southPanel.add(clearButton);
 		southPanel.add(blackCount);
 
@@ -61,21 +67,30 @@ class GamePadWindow extends JFrame {
 			}
 		});
 
+		startComputerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((VirtualGamePadImpl) virtualGamePad).makeBestConputerMove();
+				repaint();
+			}
+		});
+
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		// Dimension buttonHeight = endButton.getSize(null); rozmiar dostępny
 		// dopiero po narysowaniu
 		int width = Math.max((virtualGamePad.getSizeTable() + 0) * virtualGamePad.getSizeCell()
-				+ (virtualGamePad.getSizeTable() + 1) + 16, 200);
+				+ (virtualGamePad.getSizeTable() + 1) + 16, 400);
 		setSize(width, ((virtualGamePad.getSizeTable() + 0) * virtualGamePad.getSizeCell()
-				+ (virtualGamePad.getSizeTable() + 1) + 75 /* na przyciski */ ));
+				+ (virtualGamePad.getSizeTable() + 1) + 75 /* na przyciski */ + 25));
 		setResizable(false);
 		setBackground(Color.WHITE);
 		redCount.setForeground(Color.RED);
 		blackCount.setForeground(Color.BLACK);
+		statementLab.setForeground(Color.RED);
 
 		setLayout(new BorderLayout());
 		add(northPanel, BorderLayout.NORTH);
+		add(middlePanel, BorderLayout.CENTER);
 		add(southPanel, BorderLayout.SOUTH);
 	}
 }

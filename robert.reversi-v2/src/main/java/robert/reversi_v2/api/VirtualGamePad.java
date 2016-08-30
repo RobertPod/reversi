@@ -19,7 +19,7 @@ public interface VirtualGamePad {
 
 	CellCollor getCell(int x, int y);
 
-	boolean rightMove(int x, int y, CellCollor cellCollor);
+	boolean isCorrectMovement(int x, int y, CellCollor cellCollor, boolean makeMove);
 
 	boolean possibleMove(CellCollor cellCollor);
 
