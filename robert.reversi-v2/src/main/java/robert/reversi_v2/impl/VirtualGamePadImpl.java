@@ -213,10 +213,10 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 		maxWin = xyPosition.winsPawns;
 		maxWinCount = 0;
 		for (XYPosition xyPosition2 : moveList) {
-			++maxWinCount;
 			if (xyPosition2.winsPawns < maxWin) {
 				break;
 			}
+			++maxWinCount;
 		}
 		int myShot = r.nextInt(maxWinCount);
 
@@ -299,6 +299,8 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 		if (northCell) {
 			northCell = false;
 			for (int iy = y; iy >= 0; --iy) {
+				if (iy != y && (getCell(x, iy) == CellCollor.WHITE))
+					break;
 				if (getCell(x, iy) == cellCollor) {
 					for (int iiy = y - 1; iiy >= 0; --iiy) {
 						if (getCell(x, iiy) == opositeCollor) {
@@ -320,6 +322,8 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 		if (southCell) {
 			southCell = false;
 			for (int iy = y; iy < this.sizeTable; ++iy) {
+				if (iy != y && (getCell(x, iy) == CellCollor.WHITE))
+					break;
 				if (getCell(x, iy) == cellCollor) {
 					for (int iiy = y + 1; iiy < this.sizeTable; ++iiy) {
 						if (getCell(x, iiy) == opositeCollor) {
@@ -341,6 +345,8 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 		if (eastCell) {
 			eastCell = false;
 			for (int ix = x; ix >= 0; --ix) {
+				if (ix != x && (getCell(ix, y) == CellCollor.WHITE))
+					break;
 				if (getCell(ix, y) == cellCollor) {
 					for (int iix = x - 1; iix >= 0; --iix) {
 						if (getCell(iix, y) == opositeCollor) {
@@ -364,6 +370,8 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 		{
 			westCell = false;
 			for (int ix = x; ix < this.sizeTable; ++ix) {
+				if (ix != x && (getCell(ix, y) == CellCollor.WHITE))
+					break;
 				if (getCell(ix, y) == cellCollor) {
 					for (int iix = x + 1; iix < this.sizeTable; ++iix) {
 						if (getCell(iix, y) == opositeCollor) {
@@ -385,6 +393,8 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 		if (northEastCell) {
 			northEastCell = false;
 			for (int ix = x, iy = y; ix >= 0 && iy >= 0; --ix, --iy) {
+				if (ix != x && (getCell(ix, iy) == CellCollor.WHITE))
+					break;
 				if (getCell(ix, iy) == cellCollor) {
 					for (int iix = x - 1, iiy = y - 1; iix >= 0 && iiy >= 0; --iix, --iiy) {
 						if (getCell(iix, iiy) == opositeCollor) {
@@ -406,6 +416,8 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 		if (southEastCell) {
 			southEastCell = false;
 			for (int ix = x, iy = y; ix >= 0 && iy < this.sizeTable; --ix, ++iy) {
+				if (ix != x && (getCell(ix, iy) == CellCollor.WHITE))
+					break;
 				if (getCell(ix, iy) == cellCollor) {
 					for (int iix = x - 1, iiy = y + 1; iix >= 0 && iiy < this.sizeTable; --iix, ++iiy) {
 						if (getCell(iix, iiy) == opositeCollor) {
@@ -427,6 +439,8 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 		if (nortWesthCell) {
 			nortWesthCell = false;
 			for (int ix = x, iy = y; ix < this.sizeTable && iy >= 0; ++ix, --iy) {
+				if (ix != x && (getCell(ix, iy) == CellCollor.WHITE))
+					break;
 				if (getCell(ix, iy) == cellCollor) {
 					for (int iix = x + 1, iiy = y - 1; iix < this.sizeTable && iiy >= 0; ++iix, --iiy) {
 						if (getCell(iix, iiy) == opositeCollor) {
@@ -448,6 +462,8 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 		if (southWestCell) {
 			southWestCell = false;
 			for (int ix = x, iy = y; ix < this.sizeTable && iy < this.sizeTable; ++ix, ++iy) {
+				if (ix != x && (getCell(ix, iy) == CellCollor.WHITE))
+					break;
 				if (getCell(ix, iy) == cellCollor) {
 					for (int iix = x + 1, iiy = y + 1; iix < this.sizeTable && iiy < this.sizeTable; ++iix, ++iiy) {
 						if (getCell(iix, iiy) == opositeCollor) {

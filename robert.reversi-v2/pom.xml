@@ -47,6 +47,7 @@
 	</dependencies>
 	<description>1.0.2 corect dimensions
 1.0.3 Sizes chessboard - swapping fixed to variable
-2.0.0 Hey, let's game!</description>
-	<version>2.0.0</version>
+2.0.0 Hey, let's game!
+2.0.1 fixes game algorithm</description>
+	<version>2.0.1</version>
 </project>
