@@ -7,9 +7,10 @@ public interface ComputerMove {
 		public int x;
 		public int y;
 		public int winsPawns;
+		public int subjectiveWeight;
 
 		public int compareTo(XYPosition o) {
-			return o.winsPawns - winsPawns;
+			return (o.winsPawns + o.subjectiveWeight) - (winsPawns + subjectiveWeight);
 		}
 	}
 

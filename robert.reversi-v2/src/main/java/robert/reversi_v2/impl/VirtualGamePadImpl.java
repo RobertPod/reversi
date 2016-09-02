@@ -5,12 +5,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 import robert.reversi_v2.api.ComputerMove;
 import robert.reversi_v2.api.VirtualGamePad;
 import robert.reversi_v2.domain.CellCollor;
 import robert.reversi_v2.domain.DeclareConstants;
 
 public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
+	final static Logger logger = Logger.getLogger(robert.reversi_v2.impl.VirtualGamePadImpl.class);
+
 	private CellCollor cColour = CellCollor.BLACK; // computer pawn colour
 	private CellCollor[][] gameTable;
 	private int sizeTable = DeclareConstants.getSizetable();
@@ -210,10 +214,10 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 
 		Collections.sort(moveList);
 		xyPosition = moveList.get(0);
-		maxWin = xyPosition.winsPawns;
+		maxWin = xyPosition.winsPawns + xyPosition.subjectiveWeight;
 		maxWinCount = 0;
 		for (XYPosition xyPosition2 : moveList) {
-			if (xyPosition2.winsPawns < maxWin) {
+			if (xyPosition2.winsPawns + xyPosition2.subjectiveWeight < maxWin) {
 				break;
 			}
 			++maxWinCount;
@@ -245,6 +249,9 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 					xyPosition.winsPawns = xyWin;
 					xyPosition.x = i;
 					xyPosition.y = j;
+					xyPosition.subjectiveWeight = i == 0 || j == 0 || i == sizeTable - 1 || j == sizeTable - 1 ? 1 : 0;
+					if (xyPosition.subjectiveWeight != 0)
+						logger.debug("Ustawiony xyPosition.subjectiveWeight: " + i + " " + j);
 					moveList.add(xyPosition);
 				}
 			}

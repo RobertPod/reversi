@@ -41,7 +41,7 @@ class GamePadWindow extends JFrame {
 
 	public GamePadWindow() {
 
-		super("Reversi v.2 2.0.1 Hey, let's game!");
+		super("Reversi v.2 2.0.2 Set logger log4j");
 
 		JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		northPanel.add((Component) gamePad);
