@@ -13,7 +13,10 @@ import robert.reversi_v2.domain.CellCollor;
 import robert.reversi_v2.domain.DeclareConstants;
 
 public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
-	final static Logger logger = Logger.getLogger(robert.reversi_v2.impl.VirtualGamePadImpl.class);
+	// final static Logger logger =
+	// Logger.getLogger(robert.reversi_v2.impl.VirtualGamePadImpl.class);
+	/* Get actual class name to be printed on */
+	final static Logger logger = Logger.getLogger(VirtualGamePadImpl.class.getName());
 
 	private CellCollor cColour = CellCollor.BLACK; // computer pawn colour
 	private CellCollor[][] gameTable;
@@ -197,11 +200,6 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 		gameTable[sizeTable / 2 - 1][sizeTable / 2] = CellCollor.RED;
 	}
 
-	private XYPosition firsMove() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public XYPosition bestMove() {
 		int maxWin;
 		int maxWinCount;
@@ -251,7 +249,7 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 					xyPosition.y = j;
 					xyPosition.subjectiveWeight = i == 0 || j == 0 || i == sizeTable - 1 || j == sizeTable - 1 ? 1 : 0;
 					if (xyPosition.subjectiveWeight != 0)
-						logger.debug("Ustawiony xyPosition.subjectiveWeight: " + i + " " + j);
+						logger.debug("Setting xyPosition.subjectiveWeight: " + i + " " + j);
 					moveList.add(xyPosition);
 				}
 			}

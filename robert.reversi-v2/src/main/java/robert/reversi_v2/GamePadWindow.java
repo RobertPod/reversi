@@ -15,7 +15,6 @@ import javax.swing.SwingConstants;
 
 import robert.reversi_v2.api.GamePad;
 import robert.reversi_v2.api.VirtualGamePad;
-import robert.reversi_v2.api.ComputerMove.XYPosition;
 import robert.reversi_v2.impl.VirtualGamePadImpl;
 
 /**
@@ -41,7 +40,7 @@ class GamePadWindow extends JFrame {
 
 	public GamePadWindow() {
 
-		super("Reversi v.2 2.0.2 Set logger log4j");
+		super("Reversi v.2 2.0.3 Finish One");
 
 		JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		northPanel.add((Component) gamePad);
@@ -63,6 +62,7 @@ class GamePadWindow extends JFrame {
 		clearButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				virtualGamePad.clearGamePad();
+				((GamePadImpl) gamePad).initialState();
 				repaint();
 			}
 		});
@@ -70,6 +70,7 @@ class GamePadWindow extends JFrame {
 		startComputerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((VirtualGamePadImpl) virtualGamePad).makeBestConputerMove();
+				((GamePadImpl) gamePad).computerMadeFirstMove();
 				repaint();
 			}
 		});

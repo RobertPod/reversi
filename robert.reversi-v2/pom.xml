@@ -4,7 +4,6 @@
 
 	<groupId>robert</groupId>
 	<artifactId>reversiV2Engine</artifactId>
-	<packaging>jar</packaging>
 
 	<name>reversiV2Engine</name>
 	<url>http://maven.apache.org</url>
@@ -56,6 +55,7 @@
 1.0.3 Sizes chessboard - swapping fixed to variable
 2.0.0 Hey, let's game!
 2.0.1 fixes game algorithm
-2.0.2 Set logger log4j</description>
-	<version>2.0.2</version>
+2.0.2 Set logger log4j
+2.0.3 Finish One</description>
+	<version>2.0.3</version>
 </project>

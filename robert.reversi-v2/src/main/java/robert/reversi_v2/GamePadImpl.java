@@ -31,10 +31,13 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 	// inna koncepcja obsługi zdarzeń, patrz: 'public void notifyListeners()'
 	// private ArrayList<ActionListener> actionListeners = new
 	// ArrayList<ActionListener>();
+	private JLabel statementLab;
+	private JButton startComputerButton;
 	private ActionListener actionListener;
 
 	private boolean computerMove = false;
 	private boolean showMoveField = true;
+	private boolean firstEntry = true;
 	private int showX;
 	private int showY;
 
@@ -43,6 +46,8 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 		this.virtualGamePad = virtualGamePad;
 		this.redCountLabel = redCount;
 		this.blackCountLabel = blackCount;
+		this.startComputerButton = startComputerButton;
+		this.statementLab = statementLab;
 		addMouseListener(new ML());
 		addMouseMotionListener(new MML());
 		paintGamePad();
@@ -142,6 +147,11 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 			int x = 1;
 			int y = 1;
 
+			if (firstEntry) {
+				firstEntry = false;
+				startComputerButton.setVisible(false);
+			}
+
 			if (clickCount == 1) {
 				for (int i = 1; i <= virtualGamePad.getSizeTable(); ++i) {
 					if (xm < i * (virtualGamePad.getSizeCell() + 1)) {
@@ -158,30 +168,55 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 				if (button == 1) {
 					if (!computerMove) {
 						if (showMoveField) { // pokaż gdzie ruch
-							if (virtualGamePad.isCorrectMovement(x, y, CellCollor.RED, false)) {
-								showX = x;
-								showY = y;
-								virtualGamePad.setCell(x, y, CellCollor.PINK);
-								showMoveField = false;
+							if (virtualGamePad.possibleMove(CellCollor.RED)) {
+								if (virtualGamePad.isCorrectMovement(x, y, CellCollor.RED, false)) {
+									showX = x;
+									showY = y;
+									virtualGamePad.setCell(x, y, CellCollor.PINK);
+									statementLab.setForeground(Color.PINK);
+									statementLab.setText("Widzisz swój ruch RÓŻOWE KOŁO - KLIKNIJ");
+									showMoveField = false;
+								}
+							} else {
+								theEnd();
 							}
 						} else {
 							virtualGamePad.isCorrectMovement(showX, showY, CellCollor.RED, true);
+							statementLab.setForeground(Color.BLACK);
+							statementLab.setText("Teraz ruch komputera - KLIKNIJ");
 							computerMove = true;
 							showMoveField = true;
+							if (!virtualGamePad.possibleMove(CellCollor.BLACK)) {
+								theEnd();
+							}
 						}
 					} else {
 						if (showMoveField) { // pokaż gdzie ruch
 							XYPosition xyPosition = ((ComputerMove) virtualGamePad).bestMove();
-							if (xyPosition.winsPawns > 0) {
-								showX = xyPosition.x;
-								showY = xyPosition.y;
-								virtualGamePad.setCell(showX, showY, CellCollor.GRAY);
-								showMoveField = false;
+							if (xyPosition != null) {
+								if (xyPosition.winsPawns > 0) {
+									showX = xyPosition.x;
+									showY = xyPosition.y;
+									statementLab.setForeground(Color.GRAY);
+									virtualGamePad.setCell(showX, showY, CellCollor.GRAY);
+									statementLab.setText("Widzisz ruch komputera SZARE KOŁO - KLIKNIJ");
+									showMoveField = false;
+								} else {
+									theEnd();
+								}
+							} else {
+								theEnd();
 							}
+
 						} else {
 							virtualGamePad.isCorrectMovement(showX, showY, CellCollor.BLACK, true);
+							statementLab.setForeground(Color.RED);
+							statementLab.setText("--- TWÓJ RUCH ---");
 							computerMove = false;
 							showMoveField = true;
+							if (!virtualGamePad.possibleMove(CellCollor.RED)) {
+								theEnd();
+							}
 						}
 
 						// ((VirtualGamePadImpl)
@@ -202,6 +237,42 @@ public class GamePadImpl extends JPanel implements GamePad, Serializable {
 		public void mouseMoved(MouseEvent e) {
 			// notifyListeners();
 		}
+	}
+
+	void initialState() {
+		statementLab.setForeground(Color.RED);
+		statementLab.setText("Twoje są zawsze czerwone chcesz zacząć, wykonaj ruch");
+		startComputerButton.setVisible(true);
+		computerMove = false;
+		showMoveField = true;
+		firstEntry = true;
+	}
+
+	void computerMadeFirstMove() {
+		firstEntry = false;
+		statementLab.setForeground(Color.RED);
+		statementLab.setText("--- TWÓJ RUCH ---");
+		computerMove = false;
+		showMoveField = true;
+		startComputerButton.setVisible(false);
+
+	}
+
+	void theEnd() {
+		int red = virtualGamePad.amountPawn(CellCollor.RED);
+		redCountLabel.setText(String.valueOf(red));
+		int black = virtualGamePad.amountPawn(CellCollor.BLACK);
+		blackCountLabel.setText(String.valueOf(black));
+		statementLab.setForeground(red > black ? Color.RED : Color.BLACK);
+		String whoWin;
+		if (red == black)
+			whoWin = "!!! REMIS !!! " + red + " : " + black;
+		else if (red > black)
+			whoWin = "!!! WYGRAŁEŚ !!! " + red + " : " + black;
+		else
+			whoWin = "WYGRAŁ KOMPUTER " + red + " : " + black;
+
+		statementLab.setText(whoWin);
 	}
 
 }
