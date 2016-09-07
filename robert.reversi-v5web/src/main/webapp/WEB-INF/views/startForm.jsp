@@ -5,11 +5,12 @@
 	pageEncoding="utf-8"%>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<jsp:include page="header.jsp"/> <%--  <title>...</title> --%>
+<jsp:include page="header.jsp" />
+<%--  <title>...</title> --%>
 </head>
 <body>
 	Cześć!!!
@@ -18,16 +19,19 @@
 	<form:form action="startForm" method="POST">
 		<table>
 			<tr>
-				<td><input type="submit" name="error" value="Error" /></td>
-				<td><input type="submit" name="newuser" value="Nowy użytkownik" /></td>
+				<td><input type="submit" formmethod="post"
+					style="width: 180px;" name="error" value="Error" /></td>
+				<td><input type="submit" formmethod="post"
+					style="width: 180px;" name="newuser" value="Nowy użytkownik" /></td>
 
 			</tr>
 			<tr>
-				<td colspan="3"><input type="submit" name="finduser"
-					value="Pokaż użytkowników" /></td>
+				<td colspan="2"><input type="submit" formmethod="post"
+					style="width: 364px;" name="finduser" value="Pokaż użytkowników" /></td>
 			</tr>
 			<tr>
-				<td colspan="3"><input type="submit" name="gameboard"
+				<td colspan="2"><input type="submit" formmethod="post"
+					style="color: red; width: 364px;" name="gameboard"
 					value="Plansza gry" /></td>
 			</tr>
 		</table>

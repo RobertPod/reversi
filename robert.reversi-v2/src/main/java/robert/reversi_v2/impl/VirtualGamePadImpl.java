@@ -183,10 +183,15 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 
 	public int amountPawn(CellCollor cellCollor) {
 		int amount = 0;
-		for (int i = 0; i < sizeTable; ++i)
-			for (int j = 0; j < sizeTable; ++j)
-				if (gameTable[i][j] == cellCollor)
+		for (int i = 0; i < sizeTable; ++i) {
+			for (int j = 0; j < sizeTable; ++j) {
+				if (gameTable[i][j] == cellCollor
+						|| (gameTable[i][j] == CellCollor.RED_STOP && cellCollor == CellCollor.RED)
+						|| (gameTable[i][j] == CellCollor.RED_START && cellCollor == CellCollor.RED)) {
 					amount++;
+				}
+			}
+		}
 		return amount;
 	}
 
