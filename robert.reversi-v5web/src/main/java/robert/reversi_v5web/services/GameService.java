@@ -4,10 +4,8 @@ import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import robert.reversi_v2.api.ComputerMove;
 import robert.reversi_v2.api.ComputerMove.XYPosition;
 import robert.reversi_v2.domain.CellCollor;
-import robert.reversi_v2.impl.VirtualGamePadImpl;
 import robert.reversi_v5web.domain.ReversiV5Const;
 import robert.reversi_v5web.impl.VGamePadImpl;
 

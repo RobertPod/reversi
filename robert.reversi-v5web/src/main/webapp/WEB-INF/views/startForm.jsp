@@ -15,7 +15,8 @@
 <body>
 	Cześć!!!
 	<br />
-	<strong>${message} = :-) = </strong>
+	<strong>${message}</strong>
+	
 	<form:form action="startForm" method="POST">
 		<table>
 			<tr>

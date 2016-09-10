@@ -4,6 +4,8 @@ public final class ReversiV5Const {
 	private static final long PINKDELAY = 1200;
 	private static final long GRAYDELAY = 1200;
 	private static final long BLACKDELAY = 1200;
+	
+	public static final String EOL = System.getProperty("line.separator");
 
 	public static long getPinkdelay() {
 		return PINKDELAY;

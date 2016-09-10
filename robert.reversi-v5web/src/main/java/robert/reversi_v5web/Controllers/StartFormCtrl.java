@@ -4,7 +4,6 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,20 +14,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @Scope(value = "session")
 public class StartFormCtrl {
-	// @Autowired
-	// private UserDAO userDao;
 
 	private int counter = 1;
+	private String headString = "<p style=''>Cześć! Nieznany użytkowniku.</p>"
+			+ "<p style=''>Możesz grać anonmowo lub się zalogować / <a href='./createNewUserForm'>założyć konto.</a></p>"
+			+ "<p style=''>Po zalogowaniu będą zapisywane Twoje gry. Zyskkasz też możliwość gry z innym graczem.</p>";
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpSession session, Locale locale, Model model) {
-		model.addAttribute("message", "Cześć! Super, że tu jesteś! Już " + counter++ + " raz.");
+		model.addAttribute("message", headString + "GET");
 		return "/startForm";
 	}
 
 	@RequestMapping(value = "/startForm", method = RequestMethod.GET)
 	public String startForm(HttpSession session, Model model) {
-		model.addAttribute("message", "Cześć! Super, że tu jesteś! Już " + counter++ + " raz.");
+		model.addAttribute("message", headString + "POST");
 		return "/startForm";
 	}
 
@@ -41,7 +41,7 @@ public class StartFormCtrl {
 		if (!error.isEmpty()) {
 			return "redirect:/errorForm";
 		} else if (!newuser.isEmpty()) {
-			return "redirect:/newUserForm";
+			return "redirect:/createNewUserForm";
 		} else if (!finduser.isEmpty()) {
 			return "redirect:/userSearchForm";
 		} else if (!gameboard.isEmpty()) {

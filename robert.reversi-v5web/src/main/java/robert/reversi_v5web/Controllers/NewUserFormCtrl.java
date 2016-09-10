@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import robert.reversi_v5web.domain.ReversiV5Const;
 import robert.reversi_v5web.impl.FormularzDTO;
 import robert.reversi_v5web.impl.SprDataUserDAO;
 import robert.reversi_v5web.impl.UserSprDataImpl;
@@ -23,7 +24,7 @@ import robert.reversi_v5web.services.EmailService;
 
 @Controller
 public class NewUserFormCtrl {
-	String eol = System.getProperty("line.separator");
+	// String eol = System.getProperty("line.separator");
 	private UserSprDataImpl userDao;
 
 	@Autowired
@@ -71,9 +72,9 @@ public class NewUserFormCtrl {
 			userDaoSpr.save(userDao);
 			{
 				String emailSubject = "ReversiV5Web - założono konto";
-				String emailContent = "Konto założono poprawnie" + eol + "Username: " + form.getName() + eol
-						+ "User email: " + form.getEmail() + eol + "User age: " + form.getAge() + eol + "Data, czas: "
-						+ current_log;
+				String emailContent = "Konto założono poprawnie" + ReversiV5Const.EOL + "Username: " + form.getName()
+						+ ReversiV5Const.EOL + "User email: " + form.getEmail() + ReversiV5Const.EOL + "User age: "
+						+ form.getAge() + ReversiV5Const.EOL + "Data, czas: " + current_log;
 				emailService.sendEmail(form.getEmail(), emailSubject, emailContent);
 			}
 			return "redirect:/newUserOKForm";
@@ -81,8 +82,9 @@ public class NewUserFormCtrl {
 		model.addAttribute("message", "Użytkownik z takim adresem email już istnieje!");
 		{
 			String emailSubject = "ReversiV5Web - użytkownik już istnieje";
-			String emailContent = "Dla podanego adresu Email konto już istnieje" + eol + "Username: " + form.getName()
-					+ eol + "User email: " + form.getEmail() + eol + "User age: " + form.getAge() + eol + "Data, czas: "
+			String emailContent = "Dla podanego adresu Email konto już istnieje" + ReversiV5Const.EOL + "Username: "
+					+ form.getName() + ReversiV5Const.EOL + "User email: " + form.getEmail() + ReversiV5Const.EOL
+					+ "User age: " + form.getAge() + ReversiV5Const.EOL + "Data, czas: "
 					+ currentJavaSqlTimestamp.getCurrentJavaSqlTimestamp();
 			emailService.sendEmail(form.getEmail(), emailSubject, emailContent);
 		}

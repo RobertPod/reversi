@@ -27,6 +27,9 @@ public class FormularzDTO {
 	@Size(min = 6)
 	private String pass2;
 
+	private boolean acceptRules;
+	private boolean aHuman;
+
 	// gettery i settery
 	public String getName() {
 		return name;
@@ -67,4 +70,21 @@ public class FormularzDTO {
 	public void setPass2(String pass2) {
 		this.pass2 = pass2;
 	}
+
+	public boolean isAcceptRules() {
+		return acceptRules;
+	}
+
+	public void setAcceptRules(boolean acceptRules) {
+		this.acceptRules = acceptRules;
+	}
+
+	public boolean isaHuman() {
+		return aHuman;
+	}
+
+	public void setaHuman(boolean aHuman) {
+		this.aHuman = aHuman;
+	}
+
 }
