@@ -1,1 +1,1 @@
-<title>ReversiV5Web 1.9.1 - registration form</title>
+<title>ReversiV5Web 1.9.2 - A completed registration form</title>

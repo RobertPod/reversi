@@ -41,11 +41,13 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath*:META-INF/spring/*_${spring.profiles.active}.properties
-				</value>
+				<!-- <value>classpath*:META-INF/spring/*_${spring.profiles.active}.properties 
+					</value> -->
+				<value>/WEB-INF/application.properties</value>
 			</list>
 		</property>
 	</bean>
+	<context:property-placeholder location="/WEB-INF/application.properties" />
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

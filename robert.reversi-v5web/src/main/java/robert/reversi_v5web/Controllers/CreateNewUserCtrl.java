@@ -3,6 +3,7 @@ package robert.reversi_v5web.Controllers;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import robert.reversi_v5web.domain.ReversiV5Const;
 import robert.reversi_v5web.impl.FormularzDTO;
@@ -23,6 +25,7 @@ import robert.reversi_v5web.impl.UserSprDataImpl;
 import robert.reversi_v5web.services.CreateNewUserService;
 import robert.reversi_v5web.services.CurrentJavaSqlTimestamp;
 import robert.reversi_v5web.services.EmailService;
+// import robert.reversi_v5web.services.RecaptchaServiceImpl;
 
 @Controller
 // @Scope(value = "session")
@@ -38,6 +41,8 @@ public class CreateNewUserCtrl {
 	protected EmailService emailService;
 	@Autowired
 	protected CreateNewUserService createNewUserService;
+	// @Autowired
+	// protected RecaptchaServiceImpl recaptchaServiceImpl;
 
 	@RequestMapping(value = "/createNewUserForm", method = RequestMethod.GET)
 	public String createNnewUserFormGET(HttpSession session, Model model) {
@@ -50,8 +55,8 @@ public class CreateNewUserCtrl {
 	}
 
 	@RequestMapping(value = "/createNewUserForm", method = RequestMethod.POST, params = { "submit" })
-	public String createNewUserFormUserData(HttpSession session, Model model,
-			@ModelAttribute("form") FormularzDTO form) {
+	public String createNewUserFormUserData(@RequestParam("g-recaptcha-response") String gRecaptchaResponse,
+			HttpSession session, HttpServletRequest request, Model model, @ModelAttribute("form") FormularzDTO form) {
 
 		if (session.isNew()) {
 			return "redirect:/startForm";
@@ -68,13 +73,13 @@ public class CreateNewUserCtrl {
 		createNewUserService.getUserDao().setPass2(form.getPass2());
 		createNewUserService.getUserDao().setAge(form.getAge() == null ? 0 : form.getAge());
 		createNewUserService.getAncillaryData().setAcceptRules(form.isAcceptRules());
-		createNewUserService.getAncillaryData().setaHuman(form.isaHuman());
+		// createNewUserService.getAncillaryData().setaHuman(form.isaHuman());
 
 		Timestamp current_log = currentJavaSqlTimestamp.getCurrentJavaSqlTimestamp();
 		// userDao.setFirst_log(current_log);
 		// userDao.setLast_log(current_log);
 
-		if (createNewUserService.isDataCorrect()) {
+		if (createNewUserService.isDataCorrect(gRecaptchaResponse, request)) {
 			createNewUserService.saveUserData();
 			{
 				String emailSubject = "ReversiV5Web - założono konto";
@@ -87,7 +92,13 @@ public class CreateNewUserCtrl {
 		} else {
 			model.addAttribute("messageWlk", createNewUserService.getWelcomeStr() + "POST");
 			model.addAttribute("errorName", createNewUserService.getErrorName());
-			http: // forum.spring.io/forum/spring-projects/web/81471-default-value-for-form-input-element-in-spring
+			model.addAttribute("errorEmail", createNewUserService.getErrorEmail());
+			model.addAttribute("errorPass", createNewUserService.getErrorPass());
+			model.addAttribute("errorPass2", createNewUserService.getErrorPass2());
+			model.addAttribute("errorAccept", createNewUserService.getErrorAccept());
+			model.addAttribute("errorHuman", createNewUserService.getErrorHuman());
+			// http: //
+			// forum.spring.io/forum/spring-projects/web/81471-default-value-for-form-input-element-in-spring
 			return "createNewUserForm";
 		}
 
