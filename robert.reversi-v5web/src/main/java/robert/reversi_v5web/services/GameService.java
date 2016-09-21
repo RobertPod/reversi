@@ -165,15 +165,15 @@ public class GameService {
 					+ " do <span style='color: black;'>" + getvGamePad().amountPawn(CellCollor.BLACK)
 					+ "</span>!!! Zagraj jeszcze raz!</p></strong>";
 		else if (getvGamePad().amountPawn(CellCollor.RED) > getvGamePad().amountPawn(CellCollor.BLACK))
-			return "<strong><p style='color: red; text-align: center;'><strong>Koniec gry. (THE END)</strong></p>"
-					+ "<p style='color: red; text-align: center;'>Wygrałeś: " + getvGamePad().amountPawn(CellCollor.RED)
-					+ " do <span style='color: black;'>" + getvGamePad().amountPawn(CellCollor.BLACK)
-					+ "</span>!!! Zagraj jeszcze raz!</p></strong>";
+			return "<strong><p style='color: red; text-align: center;'><strong>Koniec gry. (THE END)</strong><br />"
+					+ "Wygrałeś: " + getvGamePad().amountPawn(CellCollor.RED) + " do <span style='color: black;'>"
+					+ getvGamePad().amountPawn(CellCollor.BLACK) + "</span>!!! Zagraj jeszcze raz!</p></strong>";
 		else
-			return "<strong><p style='color: red; text-align: center;'><strong>Koniec gry. (THE END)</strong></p>"
-					+ "<p style='color: black; text-align: center;'>Wygrał komputer: "
-					+ getvGamePad().amountPawn(CellCollor.BLACK) + " do <span style='color: red;'>"
-					+ getvGamePad().amountPawn(CellCollor.RED) + "</span> Zagraj jeszcze raz!</p></strong>";
+			return "<strong><p style='color: red; text-align: center;'><strong>Koniec gry. (THE END)</strong><br />"
+					+ "<span style='color: black; text-align: center;'>Wygrał komputer: "
+					+ getvGamePad().amountPawn(CellCollor.BLACK) + " do </span><span style='color: red;'>"
+					+ getvGamePad().amountPawn(CellCollor.RED)
+					+ "</span><span style='color: black; text-align: center;'> Zagraj jeszcze raz!</span></p></strong>";
 	}
 
 }

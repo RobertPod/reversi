@@ -12,6 +12,13 @@
 <%--  <title>...</title> --%>
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<style type="text/css">
+body {
+	font-family: arial, sans-serif;
+	text-align: left;
+}
+</style>
+
 <script>
 	$(document).ready(function() {
 		$('#myGamePad').click(function(e) {
@@ -78,10 +85,10 @@
 		<form:input type='hidden' path="counter" id="counter" name="counter"></form:input>
 	</form:form>
 
-
+	
 	<table>
 		<tr>
-			<td></td>
+			<td><span>Gracz: </span>${playerName}</td>
 			<td colspan="2"
 				style="width: 300; text-align: center; vertical-align: middle; height: 90px;">${gameStat}</td>
 		</tr>

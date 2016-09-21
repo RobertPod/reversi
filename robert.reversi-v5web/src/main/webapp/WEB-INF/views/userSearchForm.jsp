@@ -19,6 +19,28 @@ table {
 	border-spacing: 0px;
 }
 </style>
+<style>
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+body {
+	font-family: arial, sans-serif;
+	text-align: left;
+}
+</style>
 </head>
 <body>
 	<strong>${message1}&nbsp;&nbsp;&nbsp;&nbsp;:-)</strong>
@@ -45,8 +67,8 @@ table {
 				<td><input type="text" name="searchEmail"></td>
 			</tr>
 			<tr>
+				<td><br /> <input type="submit" name="cancel" value="Strona startowa" /></td>
 				<td><br /> <input type="submit" name="submit" value="Szukaj" /></td>
-				<td><br /> <input type="submit" name="cancel" value="Wróć" /></td>
 			</tr>
 		</table>
 	</form:form>

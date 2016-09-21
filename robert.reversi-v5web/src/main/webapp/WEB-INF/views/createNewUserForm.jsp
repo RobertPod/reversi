@@ -11,27 +11,58 @@
 <jsp:include page="header.jsp" />
 <%--  <title>...</title> --%>
 <script src='https://www.google.com/recaptcha/api.js'></script>
+
+<style>
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+body {
+	font-family: arial, sans-serif;
+	text-align: left;
+}
+</style>
 </head>
 <body>
-	<strong>${messageWlk}</strong>
-	<form:form action="createNewUserForm" modelAttribute="form"
-		method="post">
-		<table>
+	<table>
+		<tr>
+			<td style="width: 45%; height: 50;"><span>Gracz: </span><span
+				style="font-size: 150%; color: red;"><strong>&nbsp;&nbsp;nieznany&nbsp;&nbsp;</strong></span></td>
+			<td><strong>${messageWlk}</strong></td>
+
+		</tr>
+	</table>
+	<table>
+		<form:form action="createNewUserForm" modelAttribute="form"
+			method="post">
 			<tr>
-				<td><strong>Imię</strong> / tak będzie nazywał Cię
-					komputer&nbsp;&nbsp;<br />tak będą Cię widzieć inni.&nbsp;&nbsp;<br />Minimum
+				<td style="width: 45%; height: 45px"><strong>Imię</strong>: tak
+					będzie nazywał Cię komputer tak będą Cię widzieć inni.&nbsp;&nbsp;<br />Minimum
 					3 znaki, maksimum 20:</td>
-				<td style="vertical-align: bottom"><form:input path="name"
-						id="imie" maxlength="20"></form:input></td>
-				<td style="vertical-align: bottom">${errorName}</td>
+				<td style="width: 25%; vertical-align: bottom"><form:input
+						style="width: 300px;" path="name" id="imie" maxlength="20"
+						tabindex="0"></form:input></td>
+				<td style="width: 30%; vertical-align: bottom">${errorName}</td>
 			</tr>
 			<tr>
-				<td><strong>Adres email</strong> Nie zbieram adresów,
-					&nbsp;&nbsp;<br />więc może być fikcyjny, byle poprawny
-					formalnie,&nbsp;&nbsp;<br />aktywny adres email umożliwi reset
-					hasła &nbsp;&nbsp;<br />i żadania informacji o wynikach gier:</td>
+				<td height="45px"><strong>Adres email</strong>: Nie zbieram
+					adresów, więc może być fikcyjny, byle poprawny formalnie, aktywny
+					adres email umożliwi reset hasła i żadania informacji o wynikach
+					gier:</td>
 				<td style="vertical-align: bottom"><form:input path="email"
-						id="email"></form:input></td>
+						id="email" style="width: 300px;" tabindex="0"></form:input></td>
 				<td style="vertical-align: bottom">${errorEmail}</td>
 
 			</tr>
@@ -40,27 +71,27 @@
 				<td><form:input path="age" id="wiek"></form:input></td>
 			</tr> --%>
 			<tr>
-				<td><strong>Hasło</strong> powinno zawierać minimum 6
-					znaków&nbsp;&nbsp;<br />w tym wielką i małą literę oraz cyfrę i
-					przynajmniej&nbsp;&nbsp;<br />jeden ze znaków "@#$%!&":</td>
+				<td height="45px"><strong>Hasło</strong>: powinno zawierać
+					minimum 6 znaków w tym wielką i małą literę &nbsp;&nbsp;<br />oraz
+					cyfrę i przynajmniej jeden ze znaków "@#$%!&":</td>
 				<td style="vertical-align: bottom"><form:password path="pass"
-						id="haslo"></form:password></td>
+						id="haslo" style="width: 300px;"></form:password></td>
 				<td style="vertical-align: bottom">${errorPass}</td>
 			</tr>
 			<tr>
-				<td><strong>Powtórz hasło</strong>:</td>
+				<td height="45px"><strong>Powtórz hasło</strong>:</td>
 				<td style="vertical-align: bottom"><form:password path="pass2"
-						id="haslo2"></form:password></td>
+						id="haslo2" style="width: 300px;"></form:password></td>
 				<td style="vertical-align: bottom">${errorPass2}</td>
 			</tr>
 			<tr>
-				<td><strong>Akceptuję regulamin</strong>:</td>
+				<td height="45px"><strong>Akceptuję regulamin</strong>:</td>
 				<td style="vertical-align: bottom"><form:checkbox
 						path="acceptRules" id="acceptRules"></form:checkbox></td>
 				<td style="vertical-align: bottom">${errorAccept}</td>
 			</tr>
 			<tr>
-				<td><strong>Jestem człowiekiem</strong>:</td>
+				<td height="45px"><strong>Jestem człowiekiem</strong>:</td>
 				<td style="vertical-align: bottom">
 					<div class="g-recaptcha"
 						data-sitekey="6Lda5ikTAAAAADczo6VbLctYg_QHNSACoNxR7IrE"></div>
@@ -68,11 +99,12 @@
 				<td style="vertical-align: bottom">${errorHuman}</td>
 			</tr>
 			<tr>
-				<td><br /> <input type="submit" name="submit"
-					value="Wyślij formularz" /></td>
-				<td><br /> <input type="submit" name="cancel" value="Wróć" /></td>
+				<td><br /> <input type="submit" name="cancel"
+					value="Strona startowa" style="width: 302px;" /></td>
+				<td colspan="2"><br /> <input type="submit" name="submit"
+					value="Zarejestruj się" style="width: 302px;" /></td>
 			</tr>
-		</table>
-	</form:form>
+		</form:form>
+	</table>
 </body>
 </html>

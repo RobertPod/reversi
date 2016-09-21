@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -28,29 +29,21 @@ import robert.reversi_v5web.services.EmailService;
 // import robert.reversi_v5web.services.RecaptchaServiceImpl;
 
 @Controller
-// @Scope(value = "session")
 public class CreateNewUserCtrl {
-	// String eol = System.getProperty("line.separator");
-	// private UserSprDataImpl userDao;
-
-	@Autowired
-	protected SprDataUserDAO userDaoSpr;
-	@Autowired
-	protected CurrentJavaSqlTimestamp currentJavaSqlTimestamp;
+	final static Logger logger = Logger.getLogger(CreateNewUserService.class.getName());
+	
 	@Autowired
 	protected EmailService emailService;
 	@Autowired
 	protected CreateNewUserService createNewUserService;
-	// @Autowired
-	// protected RecaptchaServiceImpl recaptchaServiceImpl;
 
 	@RequestMapping(value = "/createNewUserForm", method = RequestMethod.GET)
 	public String createNnewUserFormGET(HttpSession session, Model model) {
 		if (session.isNew()) {
-			return "redirect:/startForm";
+			return "redirect:/LogginPageForm";
 		}
 
-		model.addAttribute("messageWlk", createNewUserService.getWelcomeStr() + "GET");
+		model.addAttribute("messageWlk", createNewUserService.getWelcomeStr() + " (GET)");
 		return "createNewUserForm";
 	}
 
@@ -59,26 +52,17 @@ public class CreateNewUserCtrl {
 			HttpSession session, HttpServletRequest request, Model model, @ModelAttribute("form") FormularzDTO form) {
 
 		if (session.isNew()) {
-			return "redirect:/startForm";
+			return "redirect:/LogginPageForm";
 		}
-
-		// List<UserSprDataImpl> searchResList =
-		// userDaoSpr.findByEmail(form.getEmail());
-		// if (CollectionUtils.isEmpty(searchResList)) {
-		// formularz wypełniony prawidłowo
-
 		createNewUserService.getUserDao().setName(form.getName());
 		createNewUserService.getUserDao().setEmail(form.getEmail());
 		createNewUserService.getUserDao().setPass(form.getPass());
 		createNewUserService.getUserDao().setPass2(form.getPass2());
 		createNewUserService.getUserDao().setAge(form.getAge() == null ? 0 : form.getAge());
 		createNewUserService.getAncillaryData().setAcceptRules(form.isAcceptRules());
-		// createNewUserService.getAncillaryData().setaHuman(form.isaHuman());
 
+		CurrentJavaSqlTimestamp currentJavaSqlTimestamp = new CurrentJavaSqlTimestamp();
 		Timestamp current_log = currentJavaSqlTimestamp.getCurrentJavaSqlTimestamp();
-		// userDao.setFirst_log(current_log);
-		// userDao.setLast_log(current_log);
-
 		if (createNewUserService.isDataCorrect(gRecaptchaResponse, request)) {
 			createNewUserService.saveUserData();
 			{
@@ -90,7 +74,7 @@ public class CreateNewUserCtrl {
 			}
 			return "redirect:/newUserOKForm";
 		} else {
-			model.addAttribute("messageWlk", createNewUserService.getWelcomeStr() + "POST");
+			model.addAttribute("messageWlk", createNewUserService.getWelcomeStr() + " (POST)");
 			model.addAttribute("errorName", createNewUserService.getErrorName());
 			model.addAttribute("errorEmail", createNewUserService.getErrorEmail());
 			model.addAttribute("errorPass", createNewUserService.getErrorPass());
@@ -123,13 +107,13 @@ public class CreateNewUserCtrl {
 	@RequestMapping(value = "/createNewUserForm", method = RequestMethod.POST, params = { "cancel" })
 	public String createNewUserFormEsc(HttpSession session, Model model) {
 
-		return "redirect:/startForm";
+		return "redirect:/LogginPageForm";
 	}
 
 	@RequestMapping(value = "/createNewUserForm", method = RequestMethod.POST)
 	public String createNewUsrFormErr(HttpSession session, Model model) {
 		if (session.isNew()) {
-			return "redirect:/startForm";
+			return "redirect:/LogginPageForm";
 		}
 		return "redirect:/errorForm";
 	}

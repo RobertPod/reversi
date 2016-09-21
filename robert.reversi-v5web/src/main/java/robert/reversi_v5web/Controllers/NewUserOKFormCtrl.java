@@ -14,7 +14,7 @@ public class NewUserOKFormCtrl {
 	@RequestMapping(value = "/newUserOKForm", method = RequestMethod.GET)
 	public String newUserOKFormGET(HttpSession session) {
 		if (session.isNew()) {
-			return "redirect:/startForm";
+			return "redirect:/LogginPageForm";
 		}
 
 		return "newUserOKForm";
@@ -22,6 +22,6 @@ public class NewUserOKFormCtrl {
 
 	@RequestMapping(value = "/newUserOKForm", method = RequestMethod.POST)
 	public String newUserOKFormPOST(HttpSession session) {
-		return "redirect:/startForm";
+		return "redirect:/LogginPageForm";
 	}
 }

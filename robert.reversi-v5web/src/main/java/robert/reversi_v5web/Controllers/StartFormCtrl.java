@@ -20,11 +20,11 @@ public class StartFormCtrl {
 			+ "<p style=''>Możesz grać anonmowo lub się zalogować / <a href='./createNewUserForm'>założyć konto.</a></p>"
 			+ "<p style=''>Po zalogowaniu będą zapisywane Twoje gry. Zyskkasz też możliwość gry z innym graczem.</p>";
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session, Locale locale, Model model) {
-		model.addAttribute("message", headString + "GET");
-		return "/startForm";
-	}
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public String home(HttpSession session, Locale locale, Model model) {
+//		model.addAttribute("message", headString + "GET");
+//		return "/startForm";
+//	}
 
 	@RequestMapping(value = "/startForm", method = RequestMethod.GET)
 	public String startForm(HttpSession session, Model model) {

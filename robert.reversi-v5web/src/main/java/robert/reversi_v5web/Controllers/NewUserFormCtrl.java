@@ -30,14 +30,12 @@ public class NewUserFormCtrl {
 	@Autowired
 	protected SprDataUserDAO userDaoSpr;
 	@Autowired
-	protected CurrentJavaSqlTimestamp currentJavaSqlTimestamp;
-	@Autowired
 	protected EmailService emailService;
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.GET)
 	public String newUserFormGET(HttpSession session, Model model) {
 		if (session.isNew()) {
-			return "redirect:/startForm";
+			return "redirect:/LogginPageForm";
 		}
 
 		model.addAttribute("message", "Cześć. Wypełnij proszę formularz.");
@@ -49,7 +47,7 @@ public class NewUserFormCtrl {
 			@ModelAttribute("form") @Valid FormularzDTO form, BindingResult result) {
 
 		if (session.isNew()) {
-			return "redirect:/startForm";
+			return "redirect:/LogginPageForm";
 		}
 
 		if (result.hasErrors()) {
@@ -66,6 +64,7 @@ public class NewUserFormCtrl {
 			userDao.setPass(form.getPass());
 			// userDao.setPass2(form.getPass2()); - nie ma sensu wpisywać
 			userDao.setAge(form.getAge() == null ? 0 : form.getAge());
+			CurrentJavaSqlTimestamp currentJavaSqlTimestamp = new CurrentJavaSqlTimestamp();
 			Timestamp current_log = currentJavaSqlTimestamp.getCurrentJavaSqlTimestamp();
 			userDao.setFirst_log(current_log);
 			userDao.setLast_log(current_log);
@@ -81,6 +80,7 @@ public class NewUserFormCtrl {
 		}
 		model.addAttribute("message", "Użytkownik z takim adresem email już istnieje!");
 		{
+			CurrentJavaSqlTimestamp currentJavaSqlTimestamp = new CurrentJavaSqlTimestamp();
 			String emailSubject = "ReversiV5Web - użytkownik już istnieje";
 			String emailContent = "Dla podanego adresu Email konto już istnieje" + ReversiV5Const.EOL + "Username: "
 					+ form.getName() + ReversiV5Const.EOL + "User email: " + form.getEmail() + ReversiV5Const.EOL
@@ -94,13 +94,13 @@ public class NewUserFormCtrl {
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST, params = { "cancel" })
 	public String newUserFormEsc(HttpSession session, Model model) {
 
-		return "redirect:/startForm";
+		return "redirect:/LogginPageForm";
 	}
 
 	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST)
 	public String newUsrFormErr(HttpSession session, Model model) {
 		if (session.isNew()) {
-			return "redirect:/startForm";
+			return "redirect:/LogginPageForm";
 		}
 		return "redirect:/errorForm";
 	}

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SprDataUserDAO extends CrudRepository<UserSprDataImpl, Long> {
-	public UserSprDataImpl findByUserId(Long userId);
+	UserSprDataImpl findByUserId(Long userId);
 
 	List<UserSprDataImpl> findByEmail(String email);
 

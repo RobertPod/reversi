@@ -9,35 +9,39 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.regex.Matcher;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.persistence.GeneratedValue;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import robert.reversi_v5web.domain.ReversiV5Const;
+import robert.reversi_v5web.impl.SprDataUserDAO;
 import robert.reversi_v5web.impl.UserSprDataImpl;
 import robert.reversi_v5web.domain.ReallyStrongSecuredPassword;
-import robert.reversi_v5web.domain.RecaptchaForm;
 
 @Service
 // @Scope(value = "session")
-public class CreateNewUserService extends RecaptchaForm {
+public class CreateNewUserService {
 	final static Logger logger = Logger.getLogger(CreateNewUserService.class.getName());
+	@Autowired
+	protected SprDataUserDAO userDaoSpr;
+
 	private UserSprDataImpl userDao;
 	private AncillaryData ancillaryData;
 
-	private String welcomeStr = "<p style=''>Podaj dane rejestracyjne.</p>"
-			+ "<p style=''>Rejestracja i logowanie umożliwi zapisywanie Twoich wyników i grę z innymi</p>"
-			+ "<p style=''>Po uruchomieniu wersji mobilnej będzie ten sam login i hasło</p>";
+	private String welcomeStr = "Podaj dane rejestracyjne. "
+			+ "Rejestracja i logowanie umożliwi zapisywanie Twoich wyników<br />i grę z innymi. "
+			+ "Po uruchomieniu wersji mobilnej będzie ten sam login i hasło";
 	private String errorName = "";
 	private String errorEmail = "";
 	private String errorPass = "";
@@ -156,8 +160,10 @@ public class CreateNewUserService extends RecaptchaForm {
 	public boolean isDataCorrect(String gRecaptchaResponse, HttpServletRequest request) {
 		// logger.info("Name: " + userDao.getName());
 		boolean returnV = checkName(userDao.getName());
+
 		// logger.info("Email: " + userDao.getEmail());
 		returnV = checkEmail(userDao.getEmail()) ? returnV : false;
+
 		logger.info("Pass: " + userDao.getPass());
 		logger.info("Pass2: " + userDao.getPass2());
 		try {
@@ -182,11 +188,24 @@ public class CreateNewUserService extends RecaptchaForm {
 		}
 		logger.info("Pass == Pass2?: " + isPassIdentically);
 		returnV = checkPass(userDao.getPass(), userDao.getPass2()) ? returnV : false;
+
 		// logger.info("isAcceptRules: " + ancillaryData.isAcceptRules());
 		returnV = checkAcceptRules(ancillaryData.isAcceptRules()) ? returnV : false;
+
 		// logger.info("isHuman: " + ancillaryData.isaHuman());
 		returnV = checkHuman(ancillaryData.isaHuman(), gRecaptchaResponse, request) ? returnV : false;
+
+		if (returnV) {
+			userDao.setPass(hashPass);
+			userDao.setPass2("");
+			CurrentJavaSqlTimestamp currentJavaSqlTimestamp = new CurrentJavaSqlTimestamp();
+			Timestamp current_log = currentJavaSqlTimestamp.getCurrentJavaSqlTimestamp();
+			logger.info("Timestamp: " + current_log);
+			userDao.setFirst_log(current_log);
+			userDao.setLast_log(current_log);
+		}
 		return returnV;
+
 	}
 
 	private boolean checkHuman(boolean isaHuman, String gRecaptchaResponse, HttpServletRequest request) {
@@ -238,6 +257,7 @@ public class CreateNewUserService extends RecaptchaForm {
 		// Verify whether the input from Human or Robot
 		if (capRes.isSuccess()) {
 			// Input by Human
+			userDao.setFirstHostname(capRes.hostname);
 			errorHuman = "<span style='color: green;'>OK</span>";
 			logger.info("hostname: " + capRes.hostname);
 
@@ -314,13 +334,19 @@ public class CreateNewUserService extends RecaptchaForm {
 		// if (matcher.matches()) {
 		// or more simple
 		if (Pattern.matches(regex, email)) {
-			errorEmail = "<span style='color: green;'>OK</span>";
-			return true;
+			List<UserSprDataImpl> searchResList = userDaoSpr.findByEmail(email);
+			if (CollectionUtils.isEmpty(searchResList)) {
+				errorEmail = "<span style='color: green;'>OK</span>";
+				return true;
+			} else {
+				errorEmail = "<span style='color: red;'>Jest już użytkownik o takim adresie email.</span>";
+			}
 		} else {
-			if (email.length() == 0)
-				errorEmail = "<span style='color: red;'>Musisz podać adres email, formalnie poprawny, może być fikcyjne.</span>";
-			else
+			if (email.length() == 0) {
+				errorEmail = "<span style='color: red;'>Musisz podać adres email, formalnie poprawny, może być fikcyjny.</span>";
+			} else {
 				errorEmail = "<span style='color: red;'>To nie jest adres email. Wpisz ciąg o strukturze abc@def.ghi.</span>";
+			}
 		}
 		return false;
 	}
@@ -345,7 +371,6 @@ public class CreateNewUserService extends RecaptchaForm {
 	}
 
 	public void saveUserData() {
-		// TODO Auto-generated method stub
-
+		userDaoSpr.save(userDao);
 	}
 }

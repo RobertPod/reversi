@@ -6,9 +6,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import robert.reversi_v5web.domain.RecaptchaForm;
-
-public class FormularzDTO extends RecaptchaForm {
+public class FormularzDTO {
 
 	// @NotEmpty
 	@Size(min = 3)

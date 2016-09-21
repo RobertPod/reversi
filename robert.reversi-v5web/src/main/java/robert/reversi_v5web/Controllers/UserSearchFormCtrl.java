@@ -25,7 +25,7 @@ public class UserSearchFormCtrl {
 	public String userSearchGET(HttpSession session, Model model) {
 
 		if (session.isNew()) {
-			return "redirect:/startForm";
+			return "redirect:/LogginPageForm";
 		}
 
 		model.addAttribute("message1", "Wyszukiwanie użytkowników");
@@ -45,7 +45,7 @@ public class UserSearchFormCtrl {
 			@ModelAttribute("formlist") List<UserSprDataImpl> formlist) {
 
 		if (session.isNew()) {
-			return "redirect:/startForm";
+			return "redirect:/LogginPageForm";
 		}
 
 		model.addAttribute("message1", "Wyszukiwanie użytkowników");
@@ -88,7 +88,7 @@ public class UserSearchFormCtrl {
 
 	@RequestMapping(value = "/userSearchForm", method = RequestMethod.POST, params = { "cancel" })
 	public String userSearchPOSTCancel(HttpSession session, Model model) {
-		return "redirect:/startForm";
+		return "redirect:/LogginPageForm";
 
 	}
 

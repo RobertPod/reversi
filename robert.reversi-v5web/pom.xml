@@ -4,7 +4,7 @@
 
 	<groupId>robert</groupId>
 	<artifactId>reversiV5Web</artifactId>
-	<version>1.9.2-SNAPSHOT</version>
+	<version>1.9.3-SNAPSHOT</version>
 
 	<name>reversiV5Web</name>
 	<url>http://maven.apache.org</url>
@@ -164,5 +164,6 @@
 1.8.0 - Sizes chessboard - swapping fixed to variable
 1.9.0 - Let's game!
 1.9.1 - registration form
-1.9.2 A completed registration form</description>
+1.9.2 A completed registration form
+1.9.3 login page, login, login sessions</description>
 </project>

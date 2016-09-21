@@ -23,6 +23,7 @@ public class UserSprDataImpl {
 	@GeneratedValue
 	private Timestamp first_log;
 	private Timestamp last_log;
+	private String firstHostname;
 
 	public String getName() {
 		return name;
@@ -88,6 +89,14 @@ public class UserSprDataImpl {
 		this.last_log = last_log;
 	}
 
+	public String getFirstHostname() {
+		return firstHostname;
+	}
+
+	public void setFirstHostname(String firstHostname) {
+		this.firstHostname = firstHostname;
+	}
+
 	public void copyUserObj(UserSprDataImpl user) {
 		this.name = user.getName();
 		this.age = user.getAge();
@@ -97,5 +106,6 @@ public class UserSprDataImpl {
 		this.userId = user.getUserId();
 		this.first_log = user.getFirst_log();
 		this.last_log = user.getFirst_log();
+		this.firstHostname = user.getFirstHostname();
 	}
 }
