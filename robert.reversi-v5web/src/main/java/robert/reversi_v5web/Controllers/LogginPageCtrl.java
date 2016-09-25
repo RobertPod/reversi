@@ -38,6 +38,8 @@ public class LogginPageCtrl {
 				+ ((session.getLastAccessedTime() - session.getCreationTime()) / 1000) + "s " + session.getId());
 		// logger.info("Session Locale: " + locale);
 		loginLogoutSessionService.checkSession(session);
+		if (loginLogoutSessionService.isLogin())
+			return ("redirect:/UserPageForm");
 
 		// if (session.isNew()) {
 		// return "redirect:/LogginPageForm";
@@ -51,15 +53,19 @@ public class LogginPageCtrl {
 	}
 
 	@RequestMapping(value = "/LogginPageForm", method = RequestMethod.POST, params = { "login" })
-	public String logginPageLoginPost(@ModelAttribute("email") String playerEmail,
-			@ModelAttribute("pass") String playerPass, HttpSession session, HttpServletRequest request, Locale locale,
-			Model model) {
+	public String logginPageLoginPost(HttpSession session, HttpServletRequest request, Locale locale, Model model,
+			@ModelAttribute("form") FormularzDTO form) {
 
 		if (!loginLogoutSessionService.checkSession(session))
 			return ("/LogginPageForm");
+		if (loginLogoutSessionService.isLogin())
+			return ("redirect:/UserPageForm");
 
-		if ((playerEmail.length() > 0) && (playerPass.length() > 0)) {
-			loginLogoutSessionService.loginToGame(playerEmail, playerPass);
+		if ((form.getEmail().length() > 0) && (form.getPass().length() > 0)) {
+			if (loginLogoutSessionService.loginToGame(form.getEmail(), form.getPass())) {
+				loginLogoutSessionService.saveNewSession(session, request);
+				return ("redirect:/UserPageForm");
+			}
 		}
 
 		model.addAttribute("playerName", loginLogoutSessionService.getPlayerString());
@@ -71,11 +77,19 @@ public class LogginPageCtrl {
 
 	@RequestMapping(value = "/LogginPageForm", method = RequestMethod.POST, params = { "gameboard" })
 	public String logginPageGamePost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
-		if (!loginLogoutSessionService.saveSession(session)) {
-			loginLogoutSessionService.removeSession(session);
-			return ("/LogginPageForm");
+		// if (!loginLogoutSessionService.saveSession(session)) {
+		// loginLogoutSessionService.removeSession(session);
+		// return ("/LogginPageForm");
+		// }
+		if (loginLogoutSessionService.isLogin()) {
+			logger.error("The program should not be in this place !!!");
+			return ("redirect:/UserPageForm");
 		}
 		return "redirect:/gameBoard";
 	}
 
+	@ModelAttribute("form")
+	public FormularzDTO getFormularz() {
+		return new FormularzDTO();
+	}
 }

@@ -26,8 +26,8 @@ import robert.reversi_v5web.services.LoginLogoutSessionService;
 public class GameBoardCtrl {
 	@Autowired
 	protected GameService gameService;
-
-	protected LoginLogoutSessionService loginLogoutSessionService = null;
+	@Autowired
+	protected LoginLogoutSessionService loginLogoutSessionService;
 
 	private int counter = 1;
 
@@ -39,13 +39,17 @@ public class GameBoardCtrl {
 		if (session.isNew()) {
 			return "redirect:/LogginPageForm";
 		}
-		if (loginLogoutSessionService == null)
-			loginLogoutSessionService = new LoginLogoutSessionService();
-		if (!loginLogoutSessionService.loadSession(session)) {
-			loginLogoutSessionService.removeSession(session);
-			gameService.getvGamePad().clearGamePad();
-			return "redirect:/LogginPageForm";
-		}
+		// if (loginLogoutSessionService == null)
+		// loginLogoutSessionService = new LoginLogoutSessionService();
+		// if (loginLogoutSessionService.isNewPlayerUserID(session))
+		// gameService.getvGamePad().clearGamePad();
+		// if (!loginLogoutSessionService.loadSession(session)) {
+		// loginLogoutSessionService.removeSession(session);
+		// gameService.getvGamePad().clearGamePad();
+		// return "redirect:/LogginPageForm";
+		// }
+		if (!loginLogoutSessionService.checkSession(session))
+			return ("/LogginPageForm");
 
 		formGamePad.clear();
 		formXY.setCounter(Integer.toString(counter));
@@ -73,7 +77,6 @@ public class GameBoardCtrl {
 			return "redirect:/LogginPageForm";
 		}
 		if (!loginLogoutSessionService.checkSession(session)) {
-			loginLogoutSessionService.removeSession(session);
 			gameService.getvGamePad().clearGamePad();
 			return "redirect:/LogginPageForm";
 		}
@@ -86,7 +89,13 @@ public class GameBoardCtrl {
 			 * planszy to wróci taki jak wyslaliśmy Jeżeli naciśnięto F5 to
 			 * wróci poprzedni POST czyli będzie mniejszy od zmiennej counter
 			 */
-			gameService.processClick(formXY.getX(), formXY.getY());
+			if (gameService.processClick(formXY.getX(), formXY.getY(), loginLogoutSessionService)){
+				// Game Over! save win / lost 
+				if (!loginLogoutSessionService.checkSession(session)) {
+					gameService.getvGamePad().clearGamePad();
+					return "redirect:/LogginPageForm";
+				}				
+			}
 		}
 		formGamePad.clear();
 		formXY.setCounter(Integer.toString(++counter));
@@ -111,7 +120,7 @@ public class GameBoardCtrl {
 			return "redirect:/LogginPageForm";
 		}
 		if (!loginLogoutSessionService.checkSession(session)) {
-			loginLogoutSessionService.removeSession(session);
+//			loginLogoutSessionService.removeSession(session);
 			gameService.getvGamePad().clearGamePad();
 			return "redirect:/LogginPageForm";
 		}
@@ -142,7 +151,7 @@ public class GameBoardCtrl {
 			return "redirect:/LogginPageForm";
 		}
 		if (!loginLogoutSessionService.checkSession(session)) {
-			loginLogoutSessionService.removeSession(session);
+//			loginLogoutSessionService.removeSession(session);
 			gameService.getvGamePad().clearGamePad();
 			return "redirect:/LogginPageForm";
 		}

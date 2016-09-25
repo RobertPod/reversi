@@ -8,6 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author Robert
+ * @version 1.9.4
+ * @since 2016-09-25
+ * 
+ *        Login data. User database record
+ */
 @Entity
 @Table(name = "user")
 public class UserSprDataImpl {
@@ -24,6 +31,8 @@ public class UserSprDataImpl {
 	private Timestamp first_log;
 	private Timestamp last_log;
 	private String firstHostname;
+	private int winGames;
+	private int lostGames;
 
 	public String getName() {
 		return name;
@@ -97,6 +106,22 @@ public class UserSprDataImpl {
 		this.firstHostname = firstHostname;
 	}
 
+	public int getWinGames() {
+		return winGames;
+	}
+
+	public void setWinGames(int winGames) {
+		this.winGames = winGames;
+	}
+
+	public int getLostGames() {
+		return lostGames;
+	}
+
+	public void setLostGames(int lostGames) {
+		this.lostGames = lostGames;
+	}
+
 	public void copyUserObj(UserSprDataImpl user) {
 		this.name = user.getName();
 		this.age = user.getAge();
@@ -107,5 +132,7 @@ public class UserSprDataImpl {
 		this.first_log = user.getFirst_log();
 		this.last_log = user.getFirst_log();
 		this.firstHostname = user.getFirstHostname();
+		this.winGames = user.getWinGames();
+		this.lostGames = user.getLostGames();
 	}
 }

@@ -41,33 +41,41 @@ body {
 		</tr>
 	</table>
 	<table>
-		<form:form action="LogginPageForm" modelAttribute="form" method="POST">
+		<form:form action="UserPageForm" method="POST">
 			<tr>
 				<td style="width: 45%;"><input type="submit" formmethod="post"
-					style="color: red; width: 300px;" name="gameboard"
-					value="Graj bez logowania" /></td>
-				<td>login (e-mail):</td>
+					style="color: red; width: 300px;" name="gameboard" value="Graj" /></td>
+				<td>${adresEmail}</td>
 			</tr>
 			<tr>
 				<td><input type="submit" formmethod="post"
-					style="width: 300px;" name="newuser" value="Załóż nowe konto" /></td>
-				<td><form:input path="email" id="email" style="width: 300px;" /></td>
+					style="width: 300px;" name="loginPlayers"
+					value="Aktualnie zalogowani gracze" /></td>
+				<td>${ipAdress}</td>
 			</tr>
 			<tr>
-				<td></td>
-				<td>hasło:</td>
+				<td><input type="submit" formmethod="post"
+					style="width: 300px;" name="yourLogins"
+					value="Zobacz swoje rozgrywki" /></td>
+				<td>${accountCreate}</td>
+			</tr>
+			<tr>
+				<td><input type="submit" formmethod="post"
+					style="width: 300px;" name="yourGames"
+					value="Zobacz swoje rozgrywki" /></td>
+				<td>${lastLoginDate}</td>
 			</tr>
 			<tr>
 				<td><input type="submit" formmethod="post"
 					style="width: 300px;" name="gamerules" value="Zasady gry" /></td>
-				<td><form:password path="pass" id="haslo" style="width: 300px;" /></td>
+				<td>${gamesWinLost}</td>
 			</tr>
 			<tr>
 				<td><input type="submit" formmethod="post"
 					style="width: 300px;" name="aboutgameandme"
 					value="Poczytaj o projekcie i kodowaniu" /></td>
 				<td><input type="submit" formmethod="post"
-					style="width: 300px;" name="login" value="Zaloguj" /></td>
+					style="width: 300px;" name="logout" value="Wyloguj" /></td>
 			</tr>
 		</form:form>
 	</table>

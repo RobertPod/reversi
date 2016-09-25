@@ -6,6 +6,13 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * @author Robert
+ * @version 1.9.4
+ * @since 2016-09-25
+ * 
+ *        Create user data. Is used each time when we contact wth JSP  
+ */
 public class FormularzDTO {
 
 	// @NotEmpty

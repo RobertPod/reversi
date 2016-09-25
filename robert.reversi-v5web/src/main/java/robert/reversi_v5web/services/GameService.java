@@ -65,9 +65,10 @@ public class GameService {
 		}
 	}
 
-	public void processClick(String x, String y) {
+	public boolean processClick(String x, String y, LoginLogoutSessionService loginLogoutSessionService) {
 		int ypos = Integer.parseInt(x);
 		int xpos = Integer.parseInt(y);
+		boolean gameOver = false;
 
 		int xcell = (xpos - xpos % (vGamePad.getSizeCell() + 1)) / (vGamePad.getSizeCell() + 1);
 		int ycell = (ypos - ypos % (vGamePad.getSizeCell() + 1)) / (vGamePad.getSizeCell() + 1);
@@ -93,7 +94,9 @@ public class GameService {
 			if (vGamePad.possibleMove(CellCollor.RED)) {
 				gameStat = "<p style='color: red; text-align: center;'><strong>Twój ruch! POWODZENIA</strong></p>";
 			} else {
-				gameStat = getFinalText();
+				// Game over
+				gameOver = true;
+				gameStat = finalGame(loginLogoutSessionService);
 			} {
 			DelayMove delay = new DelayMove();
 			delay.delayM(ReversiV5Const.getGraydelay());
@@ -109,8 +112,8 @@ public class GameService {
 				vGamePad.setCell(xcell, ycell, CellCollor.RED_START);
 				gameStat = "<p style='color: black; text-align: center;'><strong>Teraz ruch wykonuje komputer.</strong></p>";
 			} else {
-				vGamePad.setCell(xcell, ycell, CellCollor.RED);
-				gameStat = getFinalText();
+				gameOver = true;
+				gameStat = finalGame(loginLogoutSessionService);
 			} {
 			DelayMove delay = new DelayMove();
 			delay.delayM(ReversiV5Const.getPinkdelay());
@@ -133,6 +136,7 @@ public class GameService {
 			}
 			// vGamePad.setCell(xcell, ycell, CellCollor.WHITE);
 		}
+		return gameOver;
 	}
 
 	public boolean computerMove() {
@@ -158,22 +162,75 @@ public class GameService {
 		}
 	}
 
-	private String getFinalText() {
+	private String finalGame(LoginLogoutSessionService loginLogoutSessionService) {
+		setGameResult(loginLogoutSessionService);
+		return finalGameSetString();
+	}
+
+	/*
+	 * @return -1 black win (we lost)
+	 * 
+	 * @return 0 draw
+	 * 
+	 * @return +1 rew win (we win)
+	 */
+	private int finalGameWhoWin() {
 		if (getvGamePad().amountPawn(CellCollor.RED) == getvGamePad().amountPawn(CellCollor.BLACK))
+			return 0;
+		else if (getvGamePad().amountPawn(CellCollor.RED) > getvGamePad().amountPawn(CellCollor.BLACK))
+			return 1;
+		else
+			return -1;
+	}
+
+	private void setGameResult(LoginLogoutSessionService loginLogoutSessionService) {
+		int lostGamesGlobal = loginLogoutSessionService.getAdditionalUserData().getLostGames();
+		int lostGamesInSession = loginLogoutSessionService.getSessionGameLost();
+		int winGamesGlobal = loginLogoutSessionService.getAdditionalUserData().getWinGames();
+		int winGamesInSession = loginLogoutSessionService.getSessionGameWin();
+
+		switch (finalGameWhoWin()) {
+
+		case 1:
+			winGamesGlobal += 1;
+			winGamesInSession += 1;
+			break;
+
+		case -1:
+			lostGamesGlobal += 1;
+			lostGamesInSession += 1;
+			break;
+		}
+
+		loginLogoutSessionService.getAdditionalUserData().setLostGames(lostGamesGlobal);
+		loginLogoutSessionService.setSessionGameLost(lostGamesInSession);
+		loginLogoutSessionService.getAdditionalUserData().setWinGames(winGamesGlobal);
+		loginLogoutSessionService.setSessionGameWin(winGamesInSession);
+	}
+
+	private String finalGameSetString() {
+
+		switch (finalGameWhoWin()) {
+
+		case 0:
 			return "<strong><p style='color: red; text-align: center;'><strong>Koniec gry. (THE END)</strong></p>"
 					+ "<p style='color: red; text-align: center;'>Remis: " + getvGamePad().amountPawn(CellCollor.RED)
 					+ " do <span style='color: black;'>" + getvGamePad().amountPawn(CellCollor.BLACK)
 					+ "</span>!!! Zagraj jeszcze raz!</p></strong>";
-		else if (getvGamePad().amountPawn(CellCollor.RED) > getvGamePad().amountPawn(CellCollor.BLACK))
+
+		case 1:
 			return "<strong><p style='color: red; text-align: center;'><strong>Koniec gry. (THE END)</strong><br />"
 					+ "Wygrałeś: " + getvGamePad().amountPawn(CellCollor.RED) + " do <span style='color: black;'>"
 					+ getvGamePad().amountPawn(CellCollor.BLACK) + "</span>!!! Zagraj jeszcze raz!</p></strong>";
-		else
+
+		case -1:
 			return "<strong><p style='color: red; text-align: center;'><strong>Koniec gry. (THE END)</strong><br />"
 					+ "<span style='color: black; text-align: center;'>Wygrał komputer: "
 					+ getvGamePad().amountPawn(CellCollor.BLACK) + " do </span><span style='color: red;'>"
 					+ getvGamePad().amountPawn(CellCollor.RED)
 					+ "</span><span style='color: black; text-align: center;'> Zagraj jeszcze raz!</span></p></strong>";
+		}
+		return null;
 	}
 
 }

@@ -1,5 +1,12 @@
 package robert.reversi_v5web.impl;
 
+/**
+ * @author Robert
+ * @version 1.9.4
+ * @since 2016-09-25
+ * 
+ *        Get data from @see gameBoard.jsp 
+ */
 public class XYPositionDTO {
 	private String width;
 	private String height;
