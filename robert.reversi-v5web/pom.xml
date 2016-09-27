@@ -4,7 +4,7 @@
 
 	<groupId>robert</groupId>
 	<artifactId>reversiV5Web</artifactId>
-	<version>1.9.5-SNAPSHOT</version>
+	<version>1.9.5a-SNAPSHOT</version>
 
 	<name>reversiV5Web</name>
 	<url>http://maven.apache.org</url>
@@ -167,5 +167,6 @@
 1.9.2 A completed registration form
 1.9.3 login page, login, login sessions
 1.9.4 user page, save session to database
-1.9.5 repair recaptcha</description>
+1.9.5 repair recaptcha
+1.9.5a repair recaptcha (session scope for new user Ctrl)</description>
 </project>

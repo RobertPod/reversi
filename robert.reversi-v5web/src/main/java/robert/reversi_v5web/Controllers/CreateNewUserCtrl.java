@@ -22,7 +22,7 @@ import robert.reversi_v5web.services.EmailService;
 // import robert.reversi_v5web.services.RecaptchaServiceImpl;
 
 @Controller
-// @Scope(value = "session")
+@Scope(value = "session")
 public class CreateNewUserCtrl {
 	final static Logger logger = Logger.getLogger(CreateNewUserCtrl.class.getName());
 

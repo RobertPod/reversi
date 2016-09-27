@@ -31,7 +31,7 @@ import robert.reversi_v5web.impl.UserSprDataImpl;
 import robert.reversi_v5web.domain.ReallyStrongSecuredPassword;
 
 @Service
-// @Scope(value = "session")
+@Scope(value = "session")
 public class CreateNewUserService {
 	final static Logger logger = Logger.getLogger(CreateNewUserService.class.getName());
 	@Autowired
