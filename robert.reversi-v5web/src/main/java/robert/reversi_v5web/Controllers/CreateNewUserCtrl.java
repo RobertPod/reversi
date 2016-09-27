@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,15 +15,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import robert.reversi_v5web.domain.ReversiV5Const;
 import robert.reversi_v5web.impl.FormularzDTO;
+import robert.reversi_v5web.impl.SprDataUserDAO;
 import robert.reversi_v5web.services.CreateNewUserService;
 import robert.reversi_v5web.services.CurrentJavaSqlTimestamp;
 import robert.reversi_v5web.services.EmailService;
 // import robert.reversi_v5web.services.RecaptchaServiceImpl;
 
 @Controller
+// @Scope(value = "session")
 public class CreateNewUserCtrl {
-	final static Logger logger = Logger.getLogger(CreateNewUserService.class.getName());
-	
+	final static Logger logger = Logger.getLogger(CreateNewUserCtrl.class.getName());
+
+	@Autowired
+	protected SprDataUserDAO userDaoSpr;
 	@Autowired
 	protected EmailService emailService;
 	@Autowired

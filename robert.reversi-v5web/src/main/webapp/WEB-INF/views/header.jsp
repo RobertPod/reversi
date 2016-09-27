@@ -1,1 +1,1 @@
-<title>ReversiV5Web 1.9.4 user page, save session to database</title>
+<title>ReversiV5Web 1.9.5 repair recaptcha</title>

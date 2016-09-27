@@ -11,7 +11,6 @@
 <jsp:include page="header.jsp" />
 <%--  <title>...</title> --%>
 <script src='https://www.google.com/recaptcha/api.js'></script>
-
 <style>
 table {
 	font-family: arial, sans-serif;
@@ -44,9 +43,9 @@ body {
 
 		</tr>
 	</table>
-	<table>
-		<form:form action="createNewUserForm" modelAttribute="form"
-			method="post">
+	<form:form action="createNewUserForm" modelAttribute="form"
+		method="post">
+		<table>
 			<tr>
 				<td style="width: 45%; height: 45px"><strong>Imię</strong>: tak
 					będzie nazywał Cię komputer tak będą Cię widzieć inni.&nbsp;&nbsp;<br />Minimum
@@ -104,7 +103,7 @@ body {
 				<td colspan="2"><br /> <input type="submit" name="submit"
 					value="Zarejestruj się" style="width: 302px;" /></td>
 			</tr>
-		</form:form>
-	</table>
+		</table>
+	</form:form>
 </body>
 </html>

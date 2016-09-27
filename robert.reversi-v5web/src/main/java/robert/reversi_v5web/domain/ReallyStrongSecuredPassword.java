@@ -26,7 +26,11 @@ public class ReallyStrongSecuredPassword {
 	 */
 	public static boolean validatePassword(String originalPassword, String storedPassword)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
+
 		String[] parts = storedPassword.split(":");
+		// if bo nie umiem wykasowa© uruchomieniowej bazy danych z mojego serwera
+		if (parts.length != 3)
+			return false;
 		int iterations = Integer.parseInt(parts[0]);
 		byte[] salt = fromHex(parts[1]);
 		byte[] hash = fromHex(parts[2]);
