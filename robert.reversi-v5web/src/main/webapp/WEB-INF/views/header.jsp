@@ -1,1 +1,1 @@
-<title>ReversiV5Web 1.9.5a repair recaptcha (session scope for new user Ctrl)</title>
+<title>ReversiV5Web 2.0.0 Time to enter between people</title>

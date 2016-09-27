@@ -55,8 +55,7 @@ body {
 			</tr>
 			<tr>
 				<td><input type="submit" formmethod="post"
-					style="width: 300px;" name="yourLogins"
-					value="Zobacz swoje rozgrywki" /></td>
+					style="width: 300px;" name="yourLogins" value="Zobacz swoje sesje" /></td>
 				<td>${accountCreate}</td>
 			</tr>
 			<tr>

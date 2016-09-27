@@ -101,6 +101,25 @@ public class LogginPageCtrl {
 		return "redirect:/createNewUserForm";
 	}
 
+	@RequestMapping(value = "/LogginPageForm", method = RequestMethod.POST, params = { "gamerules" })
+	public String logginGameRulesPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
+		if (loginLogoutSessionService.isLogin()) {
+			logger.error("The program should not be in this place !!!");
+			return ("redirect:/UserPageForm");
+		}
+		return "redirect:/gameRulesForm";
+	}
+
+	@RequestMapping(value = "/LogginPageForm", method = RequestMethod.POST, params = { "aboutgameandme" })
+	public String logginaboutProjectAndAuthorPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
+		if (loginLogoutSessionService.isLogin()) {
+			logger.error("The program should not be in this place !!!");
+			return ("redirect:/UserPageForm");
+		}
+		return "redirect:/aboutProjectAndAuthorForm";
+	}
+
+	
 	@ModelAttribute("form")
 	public FormularzDTO getFormularz() {
 		return new FormularzDTO();

@@ -48,10 +48,9 @@ public class UserPageCtrl {
 				+ loginLogoutSessionService.getIpAdress() + " / " + loginLogoutSessionService.getLoginHostname());
 		model.addAttribute("accountCreate", "<span style='font-style: italic;'>Założenie konta: </span>"
 				+ loginLogoutSessionService.getAdditionalUserData().getFirst_log());
-		
+
 		Date data = new Date(session.getCreationTime());
-		model.addAttribute("lastLoginDate",
-				"<span style='font-style: italic;'>Czas logowania: </span>" + data);
+		model.addAttribute("lastLoginDate", "<span style='font-style: italic;'>Czas logowania: </span>" + data);
 		model.addAttribute("gamesWinLost",
 				"<span style='font-style: italic;'>Wygrane / przegrane teraz i (od początku): </span>"
 						+ loginLogoutSessionService.getSessionGameWin() + " / "
@@ -74,6 +73,34 @@ public class UserPageCtrl {
 	public String userPageFormGamePost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
 
 		return "redirect:/gameBoard";
+	}
+
+	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "gamerules" })
+	public String logginGameRulesPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
+		return "redirect:/gameRulesForm";
+	}
+
+	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "aboutgameandme" })
+	public String logginAboutProjectAndAuthorPost(HttpSession session, HttpServletRequest request, Locale locale,
+			Model model) {
+		return "redirect:/aboutProjectAndAuthorForm";
+	}
+
+	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "loginPlayers" })
+	public String logginLoginPlayersPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
+		return "redirect:/loginPlayersForm";
+	}
+
+	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "yourLogins" })
+	public String logginYourLoginsPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
+		return "redirect:/loginPlayersForm";
+		// return "redirect:/yourLoginsForm";
+	}
+
+	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "yourGames" })
+	public String logginYourGamesPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
+		return "redirect:/loginPlayersForm";
+		// return "redirect:/yourGamesForm";
 	}
 
 }
