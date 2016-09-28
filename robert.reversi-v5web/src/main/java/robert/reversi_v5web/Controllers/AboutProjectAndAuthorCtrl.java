@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AboutProjectAndAuthorCtrl {
 	final Logger logger = Logger.getLogger(AboutProjectAndAuthorCtrl.class.getName());
 
-	@RequestMapping(value = "/aboutProjectAndAuthorForm", method = RequestMethod.GET)
+	@RequestMapping(value = "/AboutProjectAndAuthorForm", method = RequestMethod.GET)
 	public String gameRulesPageGET(HttpSession session, Locale locale, Model model) {
 		if (session.isNew()) {
 			return "redirect:/LogginPageForm";
 		}
 
-		return ("/aboutProjectAndAuthorForm");
+		return ("/AboutProjectAndAuthorForm");
 	}
 
-	@RequestMapping(value = "/aboutProjectAndAuthorForm", method = RequestMethod.POST, params = { "cancel" })
+	@RequestMapping(value = "/AboutProjectAndAuthorForm", method = RequestMethod.POST, params = { "cancel" })
 	public String gameRulesPagePOST(HttpSession session, Locale locale, Model model) {
 
 		if (session.isNew()) {

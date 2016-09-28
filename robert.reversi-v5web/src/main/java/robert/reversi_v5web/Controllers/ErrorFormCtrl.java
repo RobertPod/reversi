@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ErrorFormCtrl {
-	@RequestMapping("/errorForm")
+	@RequestMapping("/ErrorForm")
 	public String errorPage(HttpSession session, Locale locale, Model model) {
 		final Logger logger = Logger.getLogger(ErrorFormCtrl.class.getName());
 
@@ -27,6 +27,6 @@ public class ErrorFormCtrl {
 
 		// session.invalidate();
 
-		return ("/errorForm");
+		return ("/ErrorForm");
 	}
 }

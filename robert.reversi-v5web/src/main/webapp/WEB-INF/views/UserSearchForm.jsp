@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<jsp:include page="header.jsp" />
+<jsp:include page="Header.jsp" />
 <%--  <title>...</title> --%>
 <style>
 table, th, td {
@@ -47,7 +47,7 @@ body {
 	<br />&nbsp;
 	<br />
 
-	<form:form action="userSearchForm">
+	<form:form action="UserSearchForm">
 	${message2}&nbsp;&nbsp;:-)
 	<br />&nbsp;
 	<br />
@@ -67,7 +67,8 @@ body {
 				<td><input type="text" name="searchEmail"></td>
 			</tr>
 			<tr>
-				<td><br /> <input type="submit" name="cancel" value="Strona startowa" /></td>
+				<td><br /> <input type="submit" name="cancel"
+					value="Strona startowa" /></td>
 				<td><br /> <input type="submit" name="submit" value="Szukaj" /></td>
 			</tr>
 		</table>
@@ -104,7 +105,7 @@ body {
 			</table>
 		</c:if>
 		<c:if test="${fn:length(formlist) == 1}">
-			<form:form action="userSearchForm" modelAttribute="formlist"
+			<form:form action="UserSearchForm" modelAttribute="formlist"
 				method="post">
 				<table>
 					<tr>

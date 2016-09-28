@@ -32,17 +32,17 @@ public class NewUserFormCtrl {
 	@Autowired
 	protected EmailService emailService;
 
-	@RequestMapping(value = "/newUserForm", method = RequestMethod.GET)
+	@RequestMapping(value = "/NewUserForm", method = RequestMethod.GET)
 	public String newUserFormGET(HttpSession session, Model model) {
 		if (session.isNew()) {
 			return "redirect:/LogginPageForm";
 		}
 
 		model.addAttribute("message", "Cześć. Wypełnij proszę formularz.");
-		return "newUserForm";
+		return "/NewUserForm";
 	}
 
-	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST, params = { "submit" })
+	@RequestMapping(value = "/NewUserForm", method = RequestMethod.POST, params = { "submit" })
 	public String newUserFormUserData(HttpSession session, Model model,
 			@ModelAttribute("form") @Valid FormularzDTO form, BindingResult result) {
 
@@ -53,7 +53,7 @@ public class NewUserFormCtrl {
 		if (result.hasErrors()) {
 			// formularz nie jest uzupełniony prawidłowo
 			model.addAttribute("message", "Bardzo proszę! Popraw blędy!");
-			return "/newUserForm";
+			return "/NewUserForm";
 		}
 		List<UserSprDataImpl> searchResList = userDaoSpr.findByEmail(form.getEmail());
 		if (CollectionUtils.isEmpty(searchResList)) {
@@ -76,7 +76,7 @@ public class NewUserFormCtrl {
 						+ form.getAge() + ReversiV5Const.EOL + "Data, czas: " + current_log;
 				emailService.sendEmail(form.getEmail(), emailSubject, emailContent);
 			}
-			return "redirect:/newUserOKForm";
+			return "redirect:/NewUserOKForm";
 		}
 		model.addAttribute("message", "Użytkownik z takim adresem email już istnieje!");
 		{
@@ -88,21 +88,21 @@ public class NewUserFormCtrl {
 					+ currentJavaSqlTimestamp.getCurrentJavaSqlTimestamp();
 			emailService.sendEmail(form.getEmail(), emailSubject, emailContent);
 		}
-		return "/newUserForm";
+		return "/NewUserForm";
 	}
 
-	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST, params = { "cancel" })
+	@RequestMapping(value = "/NewUserForm", method = RequestMethod.POST, params = { "cancel" })
 	public String newUserFormEsc(HttpSession session, Model model) {
 
 		return "redirect:/LogginPageForm";
 	}
 
-	@RequestMapping(value = "/newUserForm", method = RequestMethod.POST)
+	@RequestMapping(value = "/NewUserForm", method = RequestMethod.POST)
 	public String newUsrFormErr(HttpSession session, Model model) {
 		if (session.isNew()) {
 			return "redirect:/LogginPageForm";
 		}
-		return "redirect:/errorForm";
+		return "redirect:/ErrorForm";
 	}
 
 	@ModelAttribute("form")

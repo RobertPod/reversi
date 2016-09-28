@@ -72,34 +72,34 @@ public class UserPageCtrl {
 	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "gameboard" })
 	public String userPageFormGamePost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
 
-		return "redirect:/gameBoard";
+		return "redirect:/GameBoard";
 	}
 
 	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "gamerules" })
 	public String logginGameRulesPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
-		return "redirect:/gameRulesForm";
+		return "redirect:/GameRulesForm";
 	}
 
 	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "aboutgameandme" })
 	public String logginAboutProjectAndAuthorPost(HttpSession session, HttpServletRequest request, Locale locale,
 			Model model) {
-		return "redirect:/aboutProjectAndAuthorForm";
+		return "redirect:/AboutProjectAndAuthorForm";
 	}
 
 	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "loginPlayers" })
 	public String logginLoginPlayersPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
-		return "redirect:/loginPlayersForm";
+		return "redirect:/LoginPlayersForm";
 	}
 
 	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "yourLogins" })
 	public String logginYourLoginsPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
-		return "redirect:/loginPlayersForm";
+		return "redirect:/LoginPlayersForm";
 		// return "redirect:/yourLoginsForm";
 	}
 
 	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "yourGames" })
 	public String logginYourGamesPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
-		return "redirect:/loginPlayersForm";
+		return "redirect:/LoginPlayersForm";
 		// return "redirect:/yourGamesForm";
 	}
 

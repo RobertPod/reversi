@@ -18,6 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import robert.reversi_v5web.impl.FormularzDTO;
 import robert.reversi_v5web.services.LoginLogoutSessionService;
 
+/**
+ * @author Robert
+ * @since 1.9.3
+ * 
+ * Login page. It's default start page.
+ *
+ */
 @Controller
 @Scope(value = "session")
 public class LogginPageCtrl {
@@ -85,7 +92,7 @@ public class LogginPageCtrl {
 			logger.error("The program should not be in this place !!!");
 			return ("redirect:/UserPageForm");
 		}
-		return "redirect:/gameBoard";
+		return "redirect:/GameBoard";
 	}
 
 	@RequestMapping(value = "/LogginPageForm", method = RequestMethod.POST, params = { "newuser" })
@@ -98,7 +105,7 @@ public class LogginPageCtrl {
 			logger.error("The program should not be in this place !!!");
 			return ("redirect:/UserPageForm");
 		}
-		return "redirect:/createNewUserForm";
+		return "redirect:/CreateNewUserForm";
 	}
 
 	@RequestMapping(value = "/LogginPageForm", method = RequestMethod.POST, params = { "gamerules" })
@@ -107,7 +114,7 @@ public class LogginPageCtrl {
 			logger.error("The program should not be in this place !!!");
 			return ("redirect:/UserPageForm");
 		}
-		return "redirect:/gameRulesForm";
+		return "redirect:/GameRulesForm";
 	}
 
 	@RequestMapping(value = "/LogginPageForm", method = RequestMethod.POST, params = { "aboutgameandme" })
@@ -116,7 +123,7 @@ public class LogginPageCtrl {
 			logger.error("The program should not be in this place !!!");
 			return ("redirect:/UserPageForm");
 		}
-		return "redirect:/aboutProjectAndAuthorForm";
+		return "redirect:/AboutProjectAndAuthorForm";
 	}
 
 	

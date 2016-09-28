@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<jsp:include page="header.jsp" />
+<jsp:include page="Header.jsp" />
 <%--  <title>...</title> --%>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <style>
@@ -37,13 +37,12 @@ body {
 <body>
 	<table>
 		<tr>
-			<td style="width: 45%; height: 50;"><span>Gracz: </span><span
-				style="font-size: 150%; color: red;"><strong>&nbsp;&nbsp;nieznany&nbsp;&nbsp;</strong></span></td>
+			<td style="width: 45%; height: 60px;"><span>Gracz: </span>${playerName}</td>
 			<td><strong>${messageWlk}</strong></td>
 
 		</tr>
 	</table>
-	<form:form action="createNewUserForm" modelAttribute="form"
+	<form:form action="CreateNewUserForm" modelAttribute="form"
 		method="post">
 		<table>
 			<tr>

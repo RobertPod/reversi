@@ -21,7 +21,7 @@ public class UserSearchFormCtrl {
 	@Autowired
 	protected SprDataUserDAO userDaoSpr;
 
-	@RequestMapping(value = "/userSearchForm", method = RequestMethod.GET)
+	@RequestMapping(value = "/UserSearchForm", method = RequestMethod.GET)
 	public String userSearchGET(HttpSession session, Model model) {
 
 		if (session.isNew()) {
@@ -35,10 +35,10 @@ public class UserSearchFormCtrl {
 						+ "Jeżeli wynik wyszukiwania jest pusty lub nie wypełnino pól wyświetlana jest pusta lista.");
 		model.addAttribute("message3", "<br />&nbsp;<br />");
 
-		return "/userSearchForm";
+		return "/UserSearchForm";
 	}
 
-	@RequestMapping(value = "/userSearchForm", method = RequestMethod.POST, params = { "submit" })
+	@RequestMapping(value = "/UserSearchForm", method = RequestMethod.POST, params = { "submit" })
 	public String userSearchPOST(HttpSession session,
 			@RequestParam(required = false, defaultValue = "") String searchID,
 			@RequestParam(required = false, defaultValue = "") String searchEmail, Model model,
@@ -83,10 +83,10 @@ public class UserSearchFormCtrl {
 				model.addAttribute("message3", "<br />&nbsp;<br />Nie znaleziono użytkownika o email: " + searchEmail);
 			}
 		}
-		return "/userSearchForm";
+		return "/UserSearchForm";
 	}
 
-	@RequestMapping(value = "/userSearchForm", method = RequestMethod.POST, params = { "cancel" })
+	@RequestMapping(value = "/UserSearchForm", method = RequestMethod.POST, params = { "cancel" })
 	public String userSearchPOSTCancel(HttpSession session, Model model) {
 		return "redirect:/LogginPageForm";
 

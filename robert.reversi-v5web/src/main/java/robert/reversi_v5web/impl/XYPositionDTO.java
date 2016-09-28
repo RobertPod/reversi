@@ -5,7 +5,7 @@ package robert.reversi_v5web.impl;
  * @version 1.9.4
  * @since 2016-09-25
  * 
- *        Get data from @see gameBoard.jsp 
+ *        Get data from @see GameBoard.jsp 
  */
 public class XYPositionDTO {
 	private String width;

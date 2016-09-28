@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<jsp:include page="header.jsp" />
+<jsp:include page="Header.jsp" />
 <%--  <title>...</title> --%>
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -74,7 +74,7 @@ body {
 </head>
 <body>
 	<%-- wysłanie parametrów kliknięcia na czerwonym obszrze  --%>
-	<form:form action='gameBoard' id='gameBoardFormXY'
+	<form:form action='GameBoard' id='gameBoardFormXY'
 		modelAttribute="formXY" method='POST'>
 		<form:input type='hidden' path="x" id="x" name="x"></form:input>
 		<form:input type='hidden' path="y" id="y" name="y"></form:input>
@@ -85,7 +85,7 @@ body {
 		<form:input type='hidden' path="counter" id="counter" name="counter"></form:input>
 	</form:form>
 
-	
+
 	<table>
 		<tr>
 			<td><span>Gracz: </span>${playerName}</td>
@@ -95,7 +95,7 @@ body {
 
 		<tr>
 			<td id="GameDashBoard" style="width: 300; text-align: center;">${blackCoun}<form:form
-					action="gameBoard">
+					action="GameBoard">
 					<input type="submit" formmethod="post" style="width: 180px;"
 						name="NewGame" id="NewGame" value="Nowa gra" />
 					<br />

@@ -1,23 +1,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<jsp:include page="header.jsp" />
+<jsp:include page="Header.jsp" />
 <%--  <title>...</title> --%>
 </head>
 <body>
-	Plug... It will (asap) soon ...
+	Dziękuję za wypełnienie!
 	<br />&nbsp;
 	<br />
-	<form:form action="loginPlayersForm" modelAttribute="form"
-		method="POST">
-
-		<input type="submit" name="cancel" value="Strona startowa"
-			style="width: 302px;" />
+	<form:form>
+		<input type="submit" value="Powrót" />
 	</form:form>
 </body>
 </html>

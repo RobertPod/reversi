@@ -20,7 +20,15 @@ import robert.reversi_v5web.services.CreateNewUserService;
 import robert.reversi_v5web.services.CurrentJavaSqlTimestamp;
 import robert.reversi_v5web.services.EmailService;
 // import robert.reversi_v5web.services.RecaptchaServiceImpl;
+import robert.reversi_v5web.services.LoginLogoutSessionService;
 
+/**
+ * @author Robert
+ * @since 1.9.1
+ * 
+ *        Create new user page
+ *
+ */
 @Controller
 @Scope(value = "session")
 public class CreateNewUserCtrl {
@@ -32,18 +40,21 @@ public class CreateNewUserCtrl {
 	protected EmailService emailService;
 	@Autowired
 	protected CreateNewUserService createNewUserService;
+	@Autowired
+	protected LoginLogoutSessionService loginLogoutSessionService;
 
-	@RequestMapping(value = "/createNewUserForm", method = RequestMethod.GET)
-	public String createNnewUserFormGET(HttpSession session, Model model) {
+	@RequestMapping(value = "/CreateNewUserForm", method = RequestMethod.GET)
+	public String createNewUserFormGET(HttpSession session, Model model) {
 		if (session.isNew()) {
 			return "redirect:/LogginPageForm";
 		}
 
+		model.addAttribute("playerName", loginLogoutSessionService.getPlayerString());
 		model.addAttribute("messageWlk", createNewUserService.getWelcomeStr() + " (GET)");
-		return "createNewUserForm";
+		return "/CreateNewUserForm";
 	}
 
-	@RequestMapping(value = "/createNewUserForm", method = RequestMethod.POST, params = { "submit" })
+	@RequestMapping(value = "/CreateNewUserForm", method = RequestMethod.POST, params = { "submit" })
 	public String createNewUserFormUserData(@RequestParam("g-recaptcha-response") String gRecaptchaResponse,
 			HttpSession session, HttpServletRequest request, Model model, @ModelAttribute("form") FormularzDTO form) {
 
@@ -68,9 +79,11 @@ public class CreateNewUserCtrl {
 						+ form.getAge() + ReversiV5Const.EOL + "Data, czas: " + current_log;
 				emailService.sendEmail(form.getEmail(), emailSubject, emailContent);
 			}
-			return "redirect:/newUserOKForm";
+			return "redirect:/NewUserOKForm";
 		} else {
 			model.addAttribute("messageWlk", createNewUserService.getWelcomeStr() + " (POST)");
+			model.addAttribute("playerName", loginLogoutSessionService.getPlayerString());
+
 			model.addAttribute("errorName", createNewUserService.getErrorName());
 			model.addAttribute("errorEmail", createNewUserService.getErrorEmail());
 			model.addAttribute("errorPass", createNewUserService.getErrorPass());
@@ -79,7 +92,7 @@ public class CreateNewUserCtrl {
 			model.addAttribute("errorHuman", createNewUserService.getErrorHuman());
 			// http: //
 			// forum.spring.io/forum/spring-projects/web/81471-default-value-for-form-input-element-in-spring
-			return "createNewUserForm";
+			return "/CreateNewUserForm";
 		}
 
 		// userDaoSpr.save(userDao);
@@ -100,18 +113,18 @@ public class CreateNewUserCtrl {
 		 */
 	}
 
-	@RequestMapping(value = "/createNewUserForm", method = RequestMethod.POST, params = { "cancel" })
+	@RequestMapping(value = "/CreateNewUserForm", method = RequestMethod.POST, params = { "cancel" })
 	public String createNewUserFormEsc(HttpSession session, Model model) {
 
 		return "redirect:/LogginPageForm";
 	}
 
-	@RequestMapping(value = "/createNewUserForm", method = RequestMethod.POST)
+	@RequestMapping(value = "/CreateNewUserForm", method = RequestMethod.POST)
 	public String createNewUsrFormErr(HttpSession session, Model model) {
 		if (session.isNew()) {
 			return "redirect:/LogginPageForm";
 		}
-		return "redirect:/errorForm";
+		return "redirect:/ErrorForm";
 	}
 
 	@ModelAttribute("form")

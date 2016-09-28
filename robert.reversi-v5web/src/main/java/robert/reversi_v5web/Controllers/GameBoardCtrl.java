@@ -31,7 +31,7 @@ public class GameBoardCtrl {
 
 	private int counter = 1;
 
-	@RequestMapping(value = "/gameBoard", method = RequestMethod.GET)
+	@RequestMapping(value = "/GameBoard", method = RequestMethod.GET)
 	public String gameBoardPageGET(HttpSession session, Model model, @ModelAttribute("formXY") XYPositionDTO formXY,
 			@ModelAttribute("formGamePad") List<Integer> formGamePad,
 			@ModelAttribute("formGamePadPar") GamePadParDTO formGamePadPar, SessionStatus status) {
@@ -65,10 +65,10 @@ public class GameBoardCtrl {
 		model.addAttribute("gameStat", gameStat);
 		model.addAttribute("playerName", loginLogoutSessionService.getPlayerString());
 
-		return ("/gameBoard");
+		return ("/GameBoard");
 	}
 
-	@RequestMapping(value = "/gameBoard", method = RequestMethod.POST)
+	@RequestMapping(value = "/GameBoard", method = RequestMethod.POST)
 	public String gameBoardPagePOST(HttpSession session, Model model, @ModelAttribute("formXY") XYPositionDTO formXY,
 			@ModelAttribute("formGamePad") List<Integer> formGamePad,
 			@ModelAttribute("formGamePadPar") GamePadParDTO formGamePadPar, SessionStatus status) {
@@ -108,10 +108,10 @@ public class GameBoardCtrl {
 		model.addAttribute("gameStat", gameService.getGameStat());
 		model.addAttribute("playerName", loginLogoutSessionService.getPlayerString());
 
-		return ("/gameBoard");
+		return ("/GameBoard");
 	}
 
-	@RequestMapping(value = "/gameBoard", method = RequestMethod.POST, params = { "NewGame" })
+	@RequestMapping(value = "/GameBoard", method = RequestMethod.POST, params = { "NewGame" })
 	public String gameBoardPagePOSTNewGame(HttpSession session, Model model,
 			@ModelAttribute("formXY") XYPositionDTO formXY, @ModelAttribute("formGamePad") List<Integer> formGamePad,
 			@ModelAttribute("formGamePadPar") GamePadParDTO formGamePadPar, SessionStatus status) {
@@ -139,10 +139,10 @@ public class GameBoardCtrl {
 				"<p style='color: red; text-align: center;'><strong>Wykonaj pierwszy ruch! POWODZENIA</strong><br /><span style='color: black; text-align: center;'><strong>Jeżeli chcesz, żeby zaczął komputer naciśnij przycisk.</strong></span></p>");
 		model.addAttribute("playerName", loginLogoutSessionService.getPlayerString());
 
-		return ("/gameBoard");
+		return ("/GameBoard");
 	}
 
-	@RequestMapping(value = "/gameBoard", method = RequestMethod.POST, params = { "ComputerStart" })
+	@RequestMapping(value = "/GameBoard", method = RequestMethod.POST, params = { "ComputerStart" })
 	public String gameBoardPagePOSTComputerStart(HttpSession session, Model model,
 			@ModelAttribute("formXY") XYPositionDTO formXY, @ModelAttribute("formGamePad") List<Integer> formGamePad,
 			@ModelAttribute("formGamePadPar") GamePadParDTO formGamePadPar, SessionStatus status) {
@@ -169,11 +169,11 @@ public class GameBoardCtrl {
 		model.addAttribute("gameStat", gameService.getGameStat());
 		model.addAttribute("playerName", loginLogoutSessionService.getPlayerString());
 
-		return ("/gameBoard");
+		return ("/GameBoard");
 
 	}
 
-	@RequestMapping(value = "/gameBoard", method = RequestMethod.POST, params = { "StartForm" })
+	@RequestMapping(value = "/GameBoard", method = RequestMethod.POST, params = { "StartForm" })
 	public String userSearchPOSTStartForm(HttpSession session, Model model) {
 		if (session.isNew()) {
 			return "redirect:/LogginPageForm";
@@ -182,7 +182,7 @@ public class GameBoardCtrl {
 		return "redirect:/LogginPageForm";
 	}
 
-	@RequestMapping(value = "/gameBoard", method = RequestMethod.POST, params = { "refresh" })
+	@RequestMapping(value = "/GameBoard", method = RequestMethod.POST, params = { "refresh" })
 	public String userSearchPOSTRefresh(HttpSession session, Model model) {
 		if (session.isNew()) {
 			return "redirect:/LogginPageForm";

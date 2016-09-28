@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class NewUserOKFormCtrl {
-	@RequestMapping(value = "/newUserOKForm", method = RequestMethod.GET)
+	@RequestMapping(value = "/NewUserOKForm", method = RequestMethod.GET)
 	public String newUserOKFormGET(HttpSession session) {
 		if (session.isNew()) {
 			return "redirect:/LogginPageForm";
 		}
 
-		return "newUserOKForm";
+		return "/NewUserOKForm";
 	}
 
-	@RequestMapping(value = "/newUserOKForm", method = RequestMethod.POST)
+	@RequestMapping(value = "/NewUserOKForm", method = RequestMethod.POST)
 	public String newUserOKFormPOST(HttpSession session) {
 		return "redirect:/LogginPageForm";
 	}

@@ -7,14 +7,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<jsp:include page="header.jsp"/> <%--  <title>...</title> --%>
+<jsp:include page="Header.jsp" />
+<%--  <title>...</title> --%>
 </head>
 <body>
 	<strong>${message}&nbsp;&nbsp;&nbsp;&nbsp;:-)</strong>
 	<br />&nbsp;
 	<br />
 
-	<form:form action="newUserForm" modelAttribute="form" method="post">
+	<form:form action="NewUserForm" modelAttribute="form" method="post">
 		<table>
 			<tr>
 				<td>Imię:</td>
