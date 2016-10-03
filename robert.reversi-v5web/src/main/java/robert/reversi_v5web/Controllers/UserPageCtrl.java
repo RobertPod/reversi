@@ -93,14 +93,12 @@ public class UserPageCtrl {
 
 	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "yourLogins" })
 	public String logginYourLoginsPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
-		return "redirect:/LoginPlayersForm";
-		// return "redirect:/yourLoginsForm";
+		return "redirect:/YourLoginsForm";
 	}
 
 	@RequestMapping(value = "/UserPageForm", method = RequestMethod.POST, params = { "yourGames" })
 	public String logginYourGamesPost(HttpSession session, HttpServletRequest request, Locale locale, Model model) {
-		return "redirect:/LoginPlayersForm";
-		// return "redirect:/yourGamesForm";
+		return "redirect:/YourGamesForm";
 	}
 
 }

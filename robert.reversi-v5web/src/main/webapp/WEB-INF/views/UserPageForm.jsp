@@ -36,7 +36,8 @@ body {
 	<table>
 		<tr>
 			<td style="width: 45%; height: 60px;"><span>Gracz: </span>${playerName}</td>
-			<td><strong>${startMessage}</strong></td>
+			<td><strong>Zalowany gracz. Ekran główny!
+					${startMessage}</strong></td>
 
 		</tr>
 	</table>

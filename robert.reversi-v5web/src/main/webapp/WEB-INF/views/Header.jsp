@@ -1,1 +1,1 @@
-<title>ReversiV5Web 2.0.1 Embrace itself, they watching for you I</title>
+<title>ReversiV5Web 2.0.2 View recent HTTP session</title>

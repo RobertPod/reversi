@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,16 +16,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import robert.reversi_v5web.impl.SprDataUserDAO;
 import robert.reversi_v5web.impl.UserSprDataImpl;
+import robert.reversi_v5web.services.LoginLogoutSessionService;
 
 @Controller
+@Scope(value = "session")
 public class UserSearchFormCtrl {
 	@Autowired
 	protected SprDataUserDAO userDaoSpr;
+
+	@Autowired
+	protected LoginLogoutSessionService loginLogoutSessionService;
 
 	@RequestMapping(value = "/UserSearchForm", method = RequestMethod.GET)
 	public String userSearchGET(HttpSession session, Model model) {
 
 		if (session.isNew()) {
+			return "redirect:/LogginPageForm";
+		}
+		// only administrators may view this page - default admin has id "1"
+		if (loginLogoutSessionService.getPlayerID() != 1 && loginLogoutSessionService.getPlayerID() != 135) {
 			return "redirect:/LogginPageForm";
 		}
 

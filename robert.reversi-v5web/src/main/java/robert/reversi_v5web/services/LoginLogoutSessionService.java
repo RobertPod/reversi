@@ -8,11 +8,10 @@ import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-
-import javax.persistence.GeneratedValue;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +19,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 
 import robert.reversi_v2.domain.CellCollor;
@@ -28,17 +26,21 @@ import robert.reversi_v5web.Controllers.LogginPageCtrl;
 import robert.reversi_v5web.domain.ReallyStrongSecuredPassword;
 import robert.reversi_v5web.impl.LoginsSprDataDAO;
 import robert.reversi_v5web.impl.LoginsSprDataImpl;
+import robert.reversi_v5web.impl.SessionDisplayDataDTO;
 import robert.reversi_v5web.impl.SprDataUserDAO;
 import robert.reversi_v5web.impl.UserSprDataImpl;
 
 /**
+ * Session support.
+ * 
  * @author Robert
- *
+ * @since 1.9.3
  */
 @Service
 @Scope(value = "session")
 public class LoginLogoutSessionService {
 	final Logger logger = Logger.getLogger(LogginPageCtrl.class.getName());
+	static HashMap<Long, String> userNameMap = new HashMap<Long, String>();
 
 	@Autowired
 	protected SprDataUserDAO userDaoSpr;
@@ -57,7 +59,7 @@ public class LoginLogoutSessionService {
 	private String againstPlayer = "";
 	private String ipAdress = "";
 
-	/*
+	/**
 	 * data need to display. It is set from database user record @see
 	 * UserSprDataImpl or count during create user session to minimalize access
 	 * to database
@@ -170,6 +172,16 @@ public class LoginLogoutSessionService {
 		return additionalUserData;
 	}
 
+	/**
+	 * User. Displayed in the upper left corner.
+	 * 
+	 * @param args
+	 *            Unused.
+	 * @return Formatted name of the logged user
+	 * @exception not
+	 *                user
+	 * @see
+	 */
 	// localtion.href.replace
 	public String getPlayerString() {
 		if (getMyColor() == CellCollor.RED)
@@ -200,9 +212,17 @@ public class LoginLogoutSessionService {
 		loginsSprDataImpl.setLostGames(lostGames);
 	}
 
-	/*
-	 * true - all is OK - is new sesssion or save session is continued false -
-	 * changeed session or ip
+	/**
+	 * This method check is session number or ip not change. If user is logged
+	 * and session is OK, timestamp is save in database true - all is OK - is
+	 * new sesssion or save session is continued false - changeed session or ip
+	 * 
+	 * @param curent
+	 *            HTTP Session.
+	 * @return true - all is OK - is new sesssion or save session is continued
+	 * @return false - changeed session or ip
+	 * @exception IllegalStateException
+	 * @see IllegalStateException
 	 */
 	public boolean checkSession(HttpSession session) {
 		try {
@@ -241,6 +261,9 @@ public class LoginLogoutSessionService {
 		return true;
 	}
 
+	/*
+	 * 
+	 */
 	public boolean setNewSession(HttpSession session) {
 		try {
 			this.session = session.getId();
@@ -261,66 +284,17 @@ public class LoginLogoutSessionService {
 		return true;
 	}
 
-	// public boolean saveSession(HttpSession session) {
-	// if (!checkSession(session))
-	// return false;
-	//
-	// try {
-	// session.setAttribute("isLogin", this.isLogin);
-	// session.setAttribute("session", this.session);
-	// session.setAttribute("playerID", this.playerID);
-	// session.setAttribute("player", this.player);
-	// session.setAttribute("myColor", this.myColor);
-	// session.setAttribute("againstPlayer", this.againstPlayer);
-	// session.setAttribute("ipAdress", this.ipAdress);
-	// } catch (IllegalStateException e) {
-	// return false;
-	// }
-	//
-	// return true;
-	// }
-	//
-	// public boolean removeSession(HttpSession session) {
-	// if (!checkSession(session))
-	// return false;
-	//
-	// try {
-	// session.removeAttribute("isLogin");
-	// session.removeAttribute("session");
-	// session.removeAttribute("playerID");
-	// session.removeAttribute("player");
-	// session.removeAttribute("myColor");
-	// session.removeAttribute("againstPlayer");
-	// session.removeAttribute("ipAdress");
-	// } catch (IllegalStateException e) {
-	// return false;
-	// }
-	//
-	// return true;
-	// }
-	//
-	// public boolean loadSession(HttpSession session) {
-	// try {
-	// this.isLogin = (Boolean) session.getAttribute("isLogin");
-	// this.session = (String) session.getAttribute("session");
-	// this.playerID = (Long) session.getAttribute("playerID");
-	// this.player = (String) session.getAttribute("player");
-	// this.myColor = (CellCollor) session.getAttribute("myColor");
-	// this.againstPlayer = (String) session.getAttribute("againstPlayer");
-	// this.ipAdress = (String) session.getAttribute("ipAdress");
-	// this.newSession = false;
-	// } catch (IllegalStateException e) {
-	// return false;
-	// }
-	//
-	// return checkSession(session);
-	// }
-
+	/*
+	 * 
+	 */
 	public boolean isNewPlayerUserID(HttpSession session) {
 		return this.playerID != (Long) session.getAttribute("playerID");
 
 	}
 
+	/*
+	 * Login - service
+	 */
 	public boolean loginToGame(String email, String pass) {
 		boolean isPassIdentically = false;
 
@@ -363,6 +337,9 @@ public class LoginLogoutSessionService {
 		return true;
 	}
 
+	/*
+	 * Logout - service
+	 */
 	public void logoutFromGame(HttpSession session) {
 
 		loginsSprDataImpl.setLogoutTime(session.getLastAccessedTime());
@@ -383,6 +360,9 @@ public class LoginLogoutSessionService {
 		}
 	}
 
+	/*
+	 * Save current session in database
+	 */
 	public boolean saveNewSession(HttpSession session, HttpServletRequest request) {
 
 		// private long loginID;
@@ -401,6 +381,76 @@ public class LoginLogoutSessionService {
 		loginsSprDataDAO.save(loginsSprDataImpl);
 
 		return true;
+	}
+
+	/*
+	 * download the latest 20 session
+	 */
+	public List<LoginsSprDataImpl> getSessionListByLoginDate() {
+		// return loginsSprDataDAO.findByLogoutTimeGreaterThan(1L);
+		return loginsSprDataDAO.findFirst20ByLogoutTimeGreaterThanOrderByLogoutTimeDesc(1L);
+	}
+
+	/*
+	 * Rewriting data collected an session array to table presenting the data on
+	 * the screen.
+	 */
+	public void convertSessionsTable2Display(List<LoginsSprDataImpl> lastSessions,
+			List<SessionDisplayDataDTO> sessionDisplayDataDTO) {
+
+		if (!sessionDisplayDataDTO.isEmpty()) {
+			sessionDisplayDataDTO.clear();
+		}
+
+		if (lastSessions.isEmpty()) {
+			SessionDisplayDataDTO singleSessionDisplayDataDTO = new SessionDisplayDataDTO();
+
+			singleSessionDisplayDataDTO.setUserName("");
+			singleSessionDisplayDataDTO.setIpAdress("");
+			singleSessionDisplayDataDTO.setLoginHostname("");
+			singleSessionDisplayDataDTO.setLoginTime("");
+			singleSessionDisplayDataDTO.setLogoutTime("");
+			singleSessionDisplayDataDTO.setWinGames(0);
+			singleSessionDisplayDataDTO.setLostGames(0);
+
+			sessionDisplayDataDTO.add(singleSessionDisplayDataDTO);
+		} else {
+			String userName = null;
+			Long id = 0l;
+			for (LoginsSprDataImpl loginsSprDataImpl : lastSessions) {
+				SessionDisplayDataDTO singleSessionDisplayDataDTO = new SessionDisplayDataDTO();
+
+				id = loginsSprDataImpl.getUserId();
+				if (id > 0) {
+					userName = userNameMap.get(id);
+					if (userName == null) {
+						UserSprDataImpl userRecord = userDaoSpr.findByUserId(id);
+						if (userRecord != null) {
+							userName = userRecord.getName();
+							userNameMap.put(id, userName);
+							logger.info("User: " + id + " " + userName);
+						}
+					}
+
+					singleSessionDisplayDataDTO.setUserName(userName);
+					singleSessionDisplayDataDTO.setIpAdress(loginsSprDataImpl.getIpAdress());
+					singleSessionDisplayDataDTO.setLoginHostname(loginsSprDataImpl.getLoginHostname());
+
+					Date datain = new Date(loginsSprDataImpl.getLoginTime());
+					singleSessionDisplayDataDTO.setLoginTime(datain.toString());
+
+					Date dataout = new Date(loginsSprDataImpl.getLogoutTime());
+					singleSessionDisplayDataDTO.setLogoutTime(dataout.toString());
+					// logger.info(datain.toLocaleString() + " - " +
+					// dataout.toLocaleString());
+
+					singleSessionDisplayDataDTO.setWinGames(loginsSprDataImpl.getWinGames());
+					singleSessionDisplayDataDTO.setLostGames(loginsSprDataImpl.getLostGames());
+
+					sessionDisplayDataDTO.add(singleSessionDisplayDataDTO);
+				}
+			}
+		}
 	}
 
 	/*
