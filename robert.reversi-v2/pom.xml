@@ -57,6 +57,7 @@
 2.0.1 fixes game algorithm
 2.0.2 Set logger log4j
 2.0.3 Finish One
-2.0.4. Clean code</description>
-	<version>2.0.4</version>
+2.0.4. Clean code
+2.0.5. Improving the heuristic algorithm</description>
+	<version>2.0.5</version>
 </project>

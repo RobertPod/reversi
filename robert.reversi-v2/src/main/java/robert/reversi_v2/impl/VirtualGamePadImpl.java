@@ -252,7 +252,11 @@ public class VirtualGamePadImpl implements VirtualGamePad, ComputerMove {
 					xyPosition.winsPawns = xyWin;
 					xyPosition.x = i;
 					xyPosition.y = j;
+					// cool place pawns on edge
 					xyPosition.subjectiveWeight = i == 0 || j == 0 || i == sizeTable - 1 || j == sizeTable - 1 ? 1 : 0;
+					// pawn set two fields from the edge, make an advantage in
+					// the future
+					xyPosition.subjectiveWeight = i == 2 || j == 2 || i == sizeTable - 3 || j == sizeTable - 3 ? 1 : 0;
 					if (xyPosition.subjectiveWeight != 0)
 						logger.debug("Setting xyPosition.subjectiveWeight: " + i + " " + j);
 					moveList.add(xyPosition);
