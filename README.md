@@ -4,7 +4,7 @@ Celem projektu jest oprogramowanie gry Reversi w wersjach: standalone, webowej i
 
 Wersja standalone mieści się w projekcie: <b>robert.reversi-v2</b>.
 Zawarta tam jest również "inteligencja" gry, dlatego package ten będzie dołączany do pozostałych projektów.
-Każdy ruch wymaga dwóch kliknięć - bardzo ułatwia to anlizę i doskonalenie algorytmu ruchów komputera. Ambicją autora jest dopracowanie haurystyk algorytmu tak, żeby trudno było wygrać z komputerem. Obecnie grę można określić jako średniołatwą.
+Każdy ruch wymaga dwóch kliknięć - bardzo ułatwia to anlizę i doskonalenie algorytmu ruchów komputera. Ambicją autora jest dopracowanie haurystyk algorytmu tak, żeby trudno było wygrać z komputerem. Obecnie grę można określić jako średniołatwą. Działający program oparty o Spring można pobrać z niniejszego repozytorium <a href="https://github.com/RobertPod/reversi/blob/master/robert.reversi-v2/target/reversi_v2.jar">pod adresem (plik JAR)</a>
 
 Wersja WEB zawarta jest w projekcie <strong>robert.reversi-v5web</strong>. Jest już grywalna ale jeszcze nie kompletna.
 Celem projektu jest rozwój kompetencji bacjendowych - dlatego frontend wygląda jak wygląda - przewidziany jest jednak refaktoring.
