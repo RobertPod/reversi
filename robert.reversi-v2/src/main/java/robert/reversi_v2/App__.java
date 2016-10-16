@@ -4,9 +4,9 @@ package robert.reversi_v2;
  * Hello world!
  *
  */
-public class App 
+public class App__ 
 {
-    public static void main( String[] args )
+    public static void main__( String[] args )
     {
         System.out.println( "Hello World!" );
     }
