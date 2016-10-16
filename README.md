@@ -11,6 +11,12 @@ Celem projektu jest rozwój kompetencji bacjendowych - dlatego frontend wygląda
 
 W tej chwili aktywne są ekrany:
 <h4>LogginPageForm</h4>
+<h4>CreateNewUserForm</h4>
+<h4>UserPageForm</h4>
+<h4>LoginPlayersForm</h4>
+<h4>YourLoginsForm</h4>
+<h4>YourGamesForm</h4>
+<h4>GameRulesForm</h4>
+<h4>AboutProjectAndAuthorForm</h4>
 
-
-
+Żywa gra znajduje się pod <a href="http://reversiv5web.cfapps.io">linkiem</a>
