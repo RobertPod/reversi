@@ -14,7 +14,7 @@ W tej chwili aktywne są ekrany:
 <h4>.GameBoard</h4>
 Wiadomo. Udanych gier.
 
-<h4>LogginPageForm</h4>
+<h4>&bullet; LogginPageForm</h4>
 Wiadomo. Obsługę sesji celowo zrobiono na piechotę bo to ciekawsze niż Spring SECURITY.
 
 <h4>CreateNewUserForm</h4>
