@@ -76,6 +76,11 @@ public class GameService {
 			xcell = vGamePad.getSizeTable() - 1;
 		if (ycell >= vGamePad.getSizeTable())
 			ycell = vGamePad.getSizeTable() - 1;
+		// erzac error: Mobile Chrome 53.0.2785.124 after zoom in screem  
+		if (xcell < 0)
+			xcell = 0;
+		if (ycell < 0)
+			ycell = 0;
 
 		switch (vGamePad.getCell(xcell, ycell)) {
 		case WHITE:

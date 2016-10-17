@@ -13,7 +13,10 @@
 	<table>
 		<tr>
 			<td style="width: 45%; height: 60px;"><span></span></td>
-			<td><strong>Plug... Game rules.</strong></td>
+			<td><strong>Plug... Game rules.<br />
+			<a href="https://pl.wikipedia.org/wiki/Reversi" target="_blank">Reversi w Wikipedii</a><br />
+			<a href="http://www.othellomania.pl/" target="_blank">Strona maniaków Reversi (Othello) - historyczna</a>
+			</strong></td>
 
 		</tr>
 		<tr>
@@ -21,7 +24,7 @@
 					method="POST">
 
 					<input type="submit" name="cancel" value="Strona startowa"
-						style="width: 302px;" />
+						style="width: 302px;">
 				</form:form></td>
 			<td></td>
 		</tr>

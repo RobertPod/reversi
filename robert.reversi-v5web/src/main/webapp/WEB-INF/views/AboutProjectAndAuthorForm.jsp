@@ -10,14 +10,27 @@
 <%--  <title>...</title> --%>
 </head>
 <body>
-	Plug... about project and author.
-	<br />&nbsp;
-	<br />
-	<form:form action="AboutProjectAndAuthorForm" modelAttribute="form" method="POST">
+	<table>
+		<tr>
+			<td style="width: 45%; height: 60px;"><span></span></td>
+			<td><strong>Plug... About author.<br /> <a
+					href="https://www.linkedin.com/in/robertpodsiadly" target="_blank">Profil
+						w serwisie LinkedIn</a><br /> <a
+					href="https://github.com/RobertPod/reversi" target="_blank">Źródła
+						strony w serwisie GitHub</a>
+			</strong></td>
 
-		<input type="submit" name="cancel" value="Strona startowa"
-			style="width: 302px;" />
-	</form:form>
+		</tr>
+		<tr>
+			<td><form:form action="AboutProjectAndAuthorForm"
+					modelAttribute="form" method="POST">
+
+					<input type="submit" name="cancel" value="Strona startowa"
+						style="width: 302px;" />
+				</form:form></td>
+			<td></td>
+		</tr>
+	</table>
 </body>
 </html>
 
