@@ -55,7 +55,7 @@
 		<property name="url"
 			value="jdbc:mysql://127.0.0.1/reversi?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="QSSH0QPKGbYNn3HE" />
 	</bean>
 
 	<tx:annotation-driven />

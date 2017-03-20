@@ -1,1 +1,1 @@
-<title>ReversiV5Web 2.0.2 View recent HTTP session</title>
+<title>ReversiV5Web 3.0.0 new entry DSP</title>

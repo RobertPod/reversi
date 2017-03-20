@@ -4,7 +4,7 @@
 
 	<groupId>robert</groupId>
 	<artifactId>reversiV5Web</artifactId>
-	<version>2.0.3-SNAPSHOT</version>
+	<version>3.0.0-SNAPSHOT</version>
 
 	<name>reversiV5Web</name>
 	<url>http://maven.apache.org</url>
@@ -172,5 +172,6 @@
 2.0.0 Time to enter between people
 2.0.1 Embrace itself, they watching for you I
 2.0.2 View recent HTTP session
-2.0.3 error fix ersatz. Chrome mobile when enlarged screen</description>
+2.0.3 error fix ersatz. Chrome mobile when enlarged screen
+3.0.0 new entry DSP</description>
 </project>
